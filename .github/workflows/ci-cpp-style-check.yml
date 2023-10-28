@@ -1,0 +1,39 @@
+name: C++ Style Check
+
+on:
+  push:
+    branches:
+      - master  # Set a branch name to run CI on push
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository (Клонирование репозитория)
+        uses: actions/checkout@v2
+
+      - name: Setup C++ Environment (Настройка среды C++)
+        run: sudo apt-get install -y clang-format cpplint
+
+      - name: Check Code Style (Проверка стиля кода)
+        run: |
+          # Check code style using clang-format
+          CLANG_FORMAT_DIFF=$(git diff --name-only HEAD^ | xargs clang-format -style=file -output-replacements-xml | grep "<replacement " | wc -l)
+          if [ $CLANG_FORMAT_DIFF -ne 0 ]; then
+            echo "::error::C++ code style issues found. Please format the code using clang-format."
+            exit 1
+          fi
+          
+          # Check unstyled code blocks using cpplint
+          UNSTYLED_CODE_BLOCKS=$(git grep -n -P -m1 "(?<!// )(if|for|while|switch|else if)")
+          if [ -n "$UNSTYLED_CODE_BLOCKS" ]; then
+            echo "::error::Unstyled code blocks found. Please add appropriate styling."
+            echo "$UNSTYLED_CODE_BLOCKS"
+            exit 1
+          fi
