@@ -22,7 +22,7 @@ jobs:
       - name: Check Code Style (Проверка стиля кода)
         run: |
           # Check code style using clang-format
-          CLANG_FORMAT_DIFF=$(git diff --name-only HEAD^ | xargs clang-format -style=file -output-replacements-xml | grep "<replacement " | wc -l)
+          CLANG_FORMAT_DIFF=$(git diff --name-only $(git rev-list --max-parents=0 HEAD) | xargs clang-format -style=file -output-replacements-xml | grep "<replacement " | wc -l)
           if [ $CLANG_FORMAT_DIFF -ne 0 ]; then
             echo "::error::C++ code style issues found. Please format the code using clang-format."
             exit 1
