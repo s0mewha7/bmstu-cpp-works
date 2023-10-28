@@ -1,4 +1,4 @@
-name: C++ Style Check
+name: C++ Style Check (Проверка стиля кода)
 
 on:
   push:
