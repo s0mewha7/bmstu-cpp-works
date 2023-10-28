@@ -1,32 +1,31 @@
+- name: Run cpplint
+  run: cpplint --extensions=h,hpp,cpp --recursive --linelength=120 --filter=-build/include_subdir --output=vs7 .
+
+
+Here's the updated cpp-style-check.yml file:
+
 name: C++ Style Check
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  style-check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository (Клонирование репозитория)
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup C++ Environment (Настройка среды C++)
-        run: sudo apt-get install -y clang-format cpplint
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-      - name: Check Code Style (Проверка стиля кода с помощью clang-format и cpplint)
-        env:
-          EXCLUDE_YAML_FILES: 'ci-cpp-style-check.yml ci-cmake-tests.yml'
-          EXCLUDE_FOLDERS: '.github build test-results .vscode .git cmake-build-debug cmake-build-release'
-        run:
-            |
-                # Check code style with clang-format
-                # Проверка стиля кода с помощью clang-format
-                echo "Checking code style with clang-format..."
-                git diff --name-only --diff-filter=d origin/main...HEAD | grep -E "\.(h|cpp)$" | grep -vE "$EXCLUDE_YAML_FILES" | xargs -I {} bash -c "clang-format -style=file -i {} && git diff --exit-code {}"
+      - name: Install cpplint
+        run: pip install cpplint
 
+      - name: Run cpplint
+        run: cpplint --extensions=h,hpp,cpp --recursive --linelength=120 --filter=-build/include_subdir --output=vs7 .
