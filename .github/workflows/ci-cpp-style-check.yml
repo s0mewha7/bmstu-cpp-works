@@ -3,11 +3,9 @@ name: C++ Style Check
 on:
   push:
     branches:
-      - master  # Set a branch name to run CI on push
       - main
   pull_request:
     branches:
-      - master
       - main
 
 jobs:
