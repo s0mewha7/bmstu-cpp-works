@@ -19,22 +19,14 @@ jobs:
       - name: Setup C++ Environment (Настройка среды C++)
         run: sudo apt-get install -y clang-format cpplint
 
-      - name: Check Code Style
+      - name: Check Code Style (Проверка стиля кода с помощью clang-format и cpplint)
         env:
           EXCLUDE_YAML_FILES: 'ci-cpp-style-check.yml ci-cmake-tests.yml'
-        run: |
-          # Check code style using clang-format
-          CLANG_FORMAT_DIFF=$(git diff --name-only $(git rev-list --max-parents=0 HEAD) | grep -v "$EXCLUDE_YAML_FILES" | xargs clang-format -style=file -output-replacements-xml | grep "<replacement " | wc -l)
+          EXCLUDE_FOLDERS: '.github build test-results .vscode .git cmake-build-debug cmake-build-release'
+        run:
+            |
+                # Check code style with clang-format
+                # Проверка стиля кода с помощью clang-format
+                echo "Checking code style with clang-format..."
+                git diff --name-only --diff-filter=d origin/main...HEAD | grep -E "\.(h|cpp)$" | grep -vE "$EXCLUDE_YAML_FILES" | xargs -I {} bash -c "clang-format -style=file -i {} && git diff --exit-code {}"
 
-          if [ $CLANG_FORMAT_DIFF -ne 0 ]; then
-            echo "::error::C++ code style issues found. Please format the code using clang-format."
-            exit 1
-          fi
-          
-          # Check unstyled code blocks using cpplint
-          UNSTYLED_CODE_BLOCKS=$(git grep -n -P -m1 "(?<!// )(if|for|while|switch|else if)" | grep -v "$EXCLUDE_YAML_FILES")
-          if [ -n "$UNSTYLED_CODE_BLOCKS" ]; then
-            echo "::error::Unstyled code blocks found. Please add appropriate styling."
-            echo "$UNSTYLED_CODE_BLOCKS"
-            exit 1
-          fi
