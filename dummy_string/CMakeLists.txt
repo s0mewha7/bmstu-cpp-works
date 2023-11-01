@@ -11,9 +11,8 @@ FetchContent_MakeAvailable(googletest)
 
 set(CMAKE_CXX_STANDARD 23)
 set(TEST_NAME ${PROJECT_NAME}_tests)
-add_executable(${TEST_NAME} example_test.cpp let1_tests.cpp let_1/let.h let_1/let.cpp)
+add_executable(${TEST_NAME} basic_string.h string_test.cpp)
 target_link_libraries(${TEST_NAME} gtest_main)
-
 enable_testing()
 include(GoogleTest)
 gtest_discover_tests(${TEST_NAME})
