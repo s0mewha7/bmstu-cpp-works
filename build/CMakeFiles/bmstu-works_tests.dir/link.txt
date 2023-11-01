@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/bmstu-works_tests.dir/dummy_string/string_test.cpp.o CMakeFiles/bmstu-works_tests.dir/second_work/dec2oct_test.cpp.o CMakeFiles/bmstu-works_tests.dir/third_work/xml_format_test.cpp.o -o bmstu-works_tests  lib/libgtest_main.a lib/libgtest.a 

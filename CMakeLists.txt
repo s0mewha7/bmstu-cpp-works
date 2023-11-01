@@ -12,8 +12,8 @@ FetchContent_MakeAvailable(googletest)
 
 set(CMAKE_CXX_STANDARD 23)
 set(TEST_NAME ${PROJECT_NAME}_tests)
-add_executable(${TEST_NAME} dummy_string/basic_string.h dummy_string/string_test.cpp second_work/dec2oct_test.cpp second_work/fromdec2oct.h
-third_work/struct-to-XML.h third_work/xml_format_test.cpp third_work/struct.h)
+add_executable(${TEST_NAME} dummy_string/basic_string.h dummy_string/string_test.cpp let2-dec2oct/dec2oct_test.cpp let2-dec2oct/fromdec2oct.h
+let4-struct/struct-to-XML.h let4-struct/xml_format_test.cpp let4-struct/struct.h)
 target_link_libraries(${TEST_NAME} gtest_main)
 enable_testing()
 include(GoogleTest)
