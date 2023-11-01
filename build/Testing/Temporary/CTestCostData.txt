@@ -1,0 +1,22 @@
+StringTest.DefaultConstructor 6 0.0011826
+StringTest.CStrConstructor 6 0.00142521
+StringTest.CopyConstructor 6 0.00178523
+StringTest.MoveConstructor 6 0.00147725
+StringTest.CStrGetter 6 0.00152832
+StringTest.SizeGetter 6 0.0014288
+StringTest.CopyAssignmentOperator 6 0.00120252
+StringTest.MoveAssignmentOperator 6 0.00166656
+StringTest.AssignmentOperatorWithCString 6 0.00152283
+StringTest.ConcatenationOperator 6 0.00186697
+StringTest.IndexOperator 6 0.00154211
+StringTest.OutputOperator 6 0.00167594
+StringTest.InputOperator 6 0.00132556
+OtherTest.ConcatenationOperator 6 0.00171471
+OtherTest.CharAdditionOperator 6 0.00141328
+ConvertToOctalStringTest.PositiveNumber 6 0.00157027
+ConvertToOctalStringTest.NegativeNumber 6 0.0016352
+ConvertToOctalStringTest.Zero 6 0.00145332
+MobilePhoneTest.PrintMobilePhoneXML 0 0
+MobilePhoneTest.AllOurPhones 0 0
+---
+MobilePhoneTest.AllOurPhones

@@ -135,8 +135,3 @@ TEST(StringTest, InputOperator) {
     EXPECT_STREQ(str.c_str(), expected_result_cstr);
 }
 
-
-int main(int argc, char **argv){
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

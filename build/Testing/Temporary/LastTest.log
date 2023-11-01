@@ -1,0 +1,535 @@
+Start testing: Nov 02 00:52 MSK
+----------------------------------------------------------
+1/19 Testing: StringTest.DefaultConstructor
+1/19 Test: StringTest.DefaultConstructor
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.DefaultConstructor" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.DefaultConstructor" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.DefaultConstructor
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.DefaultConstructor
+[       OK ] StringTest.DefaultConstructor (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.DefaultConstructor" end time: Nov 02 00:52 MSK
+"StringTest.DefaultConstructor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/19 Testing: StringTest.CStrConstructor
+2/19 Test: StringTest.CStrConstructor
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.CStrConstructor" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.CStrConstructor" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.CStrConstructor
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.CStrConstructor
+[       OK ] StringTest.CStrConstructor (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.CStrConstructor" end time: Nov 02 00:52 MSK
+"StringTest.CStrConstructor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/19 Testing: StringTest.CopyConstructor
+3/19 Test: StringTest.CopyConstructor
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.CopyConstructor" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.CopyConstructor" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.CopyConstructor
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.CopyConstructor
+[       OK ] StringTest.CopyConstructor (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.CopyConstructor" end time: Nov 02 00:52 MSK
+"StringTest.CopyConstructor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/19 Testing: StringTest.MoveConstructor
+4/19 Test: StringTest.MoveConstructor
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.MoveConstructor" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.MoveConstructor" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.MoveConstructor
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.MoveConstructor
+[       OK ] StringTest.MoveConstructor (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.MoveConstructor" end time: Nov 02 00:52 MSK
+"StringTest.MoveConstructor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/19 Testing: StringTest.CStrGetter
+5/19 Test: StringTest.CStrGetter
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.CStrGetter" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.CStrGetter" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.CStrGetter
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.CStrGetter
+[       OK ] StringTest.CStrGetter (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.CStrGetter" end time: Nov 02 00:52 MSK
+"StringTest.CStrGetter" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/19 Testing: StringTest.SizeGetter
+6/19 Test: StringTest.SizeGetter
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.SizeGetter" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.SizeGetter" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.SizeGetter
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.SizeGetter
+[       OK ] StringTest.SizeGetter (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.SizeGetter" end time: Nov 02 00:52 MSK
+"StringTest.SizeGetter" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/19 Testing: StringTest.CopyAssignmentOperator
+7/19 Test: StringTest.CopyAssignmentOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.CopyAssignmentOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.CopyAssignmentOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.CopyAssignmentOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.CopyAssignmentOperator
+[       OK ] StringTest.CopyAssignmentOperator (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.CopyAssignmentOperator" end time: Nov 02 00:52 MSK
+"StringTest.CopyAssignmentOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/19 Testing: StringTest.MoveAssignmentOperator
+8/19 Test: StringTest.MoveAssignmentOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.MoveAssignmentOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.MoveAssignmentOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.MoveAssignmentOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.MoveAssignmentOperator
+[       OK ] StringTest.MoveAssignmentOperator (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.MoveAssignmentOperator" end time: Nov 02 00:52 MSK
+"StringTest.MoveAssignmentOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/19 Testing: StringTest.AssignmentOperatorWithCString
+9/19 Test: StringTest.AssignmentOperatorWithCString
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.AssignmentOperatorWithCString" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.AssignmentOperatorWithCString" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.AssignmentOperatorWithCString
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.AssignmentOperatorWithCString
+[       OK ] StringTest.AssignmentOperatorWithCString (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.AssignmentOperatorWithCString" end time: Nov 02 00:52 MSK
+"StringTest.AssignmentOperatorWithCString" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/19 Testing: StringTest.ConcatenationOperator
+10/19 Test: StringTest.ConcatenationOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.ConcatenationOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.ConcatenationOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.ConcatenationOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.ConcatenationOperator
+[       OK ] StringTest.ConcatenationOperator (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.ConcatenationOperator" end time: Nov 02 00:52 MSK
+"StringTest.ConcatenationOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/19 Testing: StringTest.IndexOperator
+11/19 Test: StringTest.IndexOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.IndexOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.IndexOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.IndexOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.IndexOperator
+[       OK ] StringTest.IndexOperator (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.IndexOperator" end time: Nov 02 00:52 MSK
+"StringTest.IndexOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/19 Testing: StringTest.OutputOperator
+12/19 Test: StringTest.OutputOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.OutputOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.OutputOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.OutputOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.OutputOperator
+[       OK ] StringTest.OutputOperator (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.OutputOperator" end time: Nov 02 00:52 MSK
+"StringTest.OutputOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/19 Testing: StringTest.InputOperator
+13/19 Test: StringTest.InputOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=StringTest.InputOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"StringTest.InputOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = StringTest.InputOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from StringTest
+[ RUN      ] StringTest.InputOperator
+[       OK ] StringTest.InputOperator (0 ms)
+[----------] 1 test from StringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"StringTest.InputOperator" end time: Nov 02 00:52 MSK
+"StringTest.InputOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/19 Testing: OtherTest.ConcatenationOperator
+14/19 Test: OtherTest.ConcatenationOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=OtherTest.ConcatenationOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"OtherTest.ConcatenationOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = OtherTest.ConcatenationOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from OtherTest
+[ RUN      ] OtherTest.ConcatenationOperator
+[       OK ] OtherTest.ConcatenationOperator (0 ms)
+[----------] 1 test from OtherTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"OtherTest.ConcatenationOperator" end time: Nov 02 00:52 MSK
+"OtherTest.ConcatenationOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/19 Testing: OtherTest.CharAdditionOperator
+15/19 Test: OtherTest.CharAdditionOperator
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=OtherTest.CharAdditionOperator" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"OtherTest.CharAdditionOperator" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = OtherTest.CharAdditionOperator
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from OtherTest
+[ RUN      ] OtherTest.CharAdditionOperator
+[       OK ] OtherTest.CharAdditionOperator (0 ms)
+[----------] 1 test from OtherTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"OtherTest.CharAdditionOperator" end time: Nov 02 00:52 MSK
+"OtherTest.CharAdditionOperator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/19 Testing: ConvertToOctalStringTest.PositiveNumber
+16/19 Test: ConvertToOctalStringTest.PositiveNumber
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=ConvertToOctalStringTest.PositiveNumber" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"ConvertToOctalStringTest.PositiveNumber" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ConvertToOctalStringTest.PositiveNumber
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ConvertToOctalStringTest
+[ RUN      ] ConvertToOctalStringTest.PositiveNumber
+[       OK ] ConvertToOctalStringTest.PositiveNumber (0 ms)
+[----------] 1 test from ConvertToOctalStringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ConvertToOctalStringTest.PositiveNumber" end time: Nov 02 00:52 MSK
+"ConvertToOctalStringTest.PositiveNumber" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/19 Testing: ConvertToOctalStringTest.NegativeNumber
+17/19 Test: ConvertToOctalStringTest.NegativeNumber
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=ConvertToOctalStringTest.NegativeNumber" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"ConvertToOctalStringTest.NegativeNumber" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ConvertToOctalStringTest.NegativeNumber
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ConvertToOctalStringTest
+[ RUN      ] ConvertToOctalStringTest.NegativeNumber
+[       OK ] ConvertToOctalStringTest.NegativeNumber (0 ms)
+[----------] 1 test from ConvertToOctalStringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ConvertToOctalStringTest.NegativeNumber" end time: Nov 02 00:52 MSK
+"ConvertToOctalStringTest.NegativeNumber" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/19 Testing: ConvertToOctalStringTest.Zero
+18/19 Test: ConvertToOctalStringTest.Zero
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=ConvertToOctalStringTest.Zero" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"ConvertToOctalStringTest.Zero" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = ConvertToOctalStringTest.Zero
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from ConvertToOctalStringTest
+[ RUN      ] ConvertToOctalStringTest.Zero
+[       OK ] ConvertToOctalStringTest.Zero (0 ms)
+[----------] 1 test from ConvertToOctalStringTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"ConvertToOctalStringTest.Zero" end time: Nov 02 00:52 MSK
+"ConvertToOctalStringTest.Zero" time elapsed: 00:00:00
+----------------------------------------------------------
+
+19/19 Testing: MobilePhoneTest.AllOurPhones
+19/19 Test: MobilePhoneTest.AllOurPhones
+Command: "/home/somewhat/bmstu-works/build/bmstu-works_tests" "--gtest_filter=MobilePhoneTest.AllOurPhones" "--gtest_also_run_disabled_tests"
+Directory: /home/somewhat/bmstu-works/build
+"MobilePhoneTest.AllOurPhones" start time: Nov 02 00:52 MSK
+Output:
+----------------------------------------------------------
+Running main() from /home/somewhat/bmstu-works/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = MobilePhoneTest.AllOurPhones
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MobilePhoneTest
+[ RUN      ] MobilePhoneTest.AllOurPhones
+/home/somewhat/bmstu-works/third_work/xml_format_test.cpp:26: Failure
+Expected equality of these values:
+  output.str()
+    Which is: "<MobilePhones>\n</MobilePhones>\n"
+  expected_output
+    Which is: "<MobilePhones>\n    <MobilePhone id=\"0\" weight=\"1.3\" is_broken=\"true\" price=\"1000.23\"/>\n    <MobilePhone id=\"1\" weight=\"2.2\" is_broken=\"false\" price=\"1123\"/>\n    <MobilePhone id=\"2\" weight=\"1\" is_broken=\"true\" price=\"100500\"/>\n</MobilePhones>"
+With diff:
+@@ -1,2 +1,5 @@
+ <MobilePhones>
+-</MobilePhones>\n
++    <MobilePhone id=\"0\" weight=\"1.3\" is_broken=\"true\" price=\"1000.23\"/>
++    <MobilePhone id=\"1\" weight=\"2.2\" is_broken=\"false\" price=\"1123\"/>
++    <MobilePhone id=\"2\" weight=\"1\" is_broken=\"true\" price=\"100500\"/>
++</MobilePhones>
+
+[  FAILED  ] MobilePhoneTest.AllOurPhones (0 ms)
+[----------] 1 test from MobilePhoneTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MobilePhoneTest.AllOurPhones
+
+ 1 FAILED TEST
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"MobilePhoneTest.AllOurPhones" end time: Nov 02 00:52 MSK
+"MobilePhoneTest.AllOurPhones" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 02 00:52 MSK

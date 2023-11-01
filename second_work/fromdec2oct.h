@@ -1,46 +1,38 @@
-#pragma once
+char* convertToOctalString(int param_number) {
+    char *octalcstring = new char[12];
 
-#include <iostream>
-
-char* convertToOctalString(int number) {
-    const int maxLength = 12; // Максимальная длина строки для int в восьмеричной системе счисления (-2147483648 включает 11 цифр и знак '-')
-    char* result = new char[maxLength];
-    int index = 0;
-
-    if (result == nullptr) {
+    if (octalcstring == nullptr) {
         return nullptr; // Ошибка выделения памяти
     }
+    size_t index = 0;
 
-    // Если число отрицательное, добавляем минус и смещаем индекс
-    if (number < 0) {
-        result[index] = '-';
-        number = -number;
-        index++;
+    if (param_number < 0) {
+        octalcstring[index++] = '-';
+        param_number = -param_number;
     }
 
-    // Добавляем "0o" в начало строки
-    result[index++] = '0';
-    result[index++] = 'o';
+    octalcstring[index++] = '0';
+    octalcstring[index++] = 'o';
 
-    // Преобразуем число в восьмеричную систему и добавляем его в строку
-    int octalDigits[11];
     int octalIndex = 0;
+    int *octalDigits = new int[11];
 
-    if (number == 0) {
-        octalDigits[octalIndex] = 0;
-        octalIndex++;
+    if (param_number == 0) {
+        octalDigits[octalIndex++] = 0;
     }
     else {
-        while (number > 0) {
-            octalDigits[octalIndex] = number % 8;
-            number /= 8;
-            octalIndex++;
+        while (param_number > 0) {
+            octalDigits[octalIndex++] = param_number % 8;
+            param_number /= 8;
         }
     }
 
     for (int i = octalIndex - 1; i >= 0; i--) {
-        result[index] = '0' + octalDigits[i];
-        index++;
+        octalcstring[index++] = '0' + octalDigits[i];
     }
-    return result;
+
+    octalcstring[index] = '\0'; // Добавляем завершающий нулевой символ
+
+    delete[] octalDigits; // Освобождаем память, выделенную для массива octalDigits
+    return octalcstring;
 }
