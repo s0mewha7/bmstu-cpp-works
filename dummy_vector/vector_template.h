@@ -8,7 +8,6 @@ namespace bmstu{
     class vector{
         public:
             struct iterator{
-                
                 using iterator_category = std::random_access_iterator_tag;
                 using difference_type = std::ptrdiff_t;
                 using value_type = Type;
@@ -16,6 +15,7 @@ namespace bmstu{
                 using reference = Type &;
 
                 iterator(pointer ptr) : m_ptr(ptr){}
+                
                 reference operator*() const{
                     return *m_ptr;
                 }
@@ -87,8 +87,13 @@ namespace bmstu{
             std::copy(other.begin(),  other.end(), begin());
         }
         /// Конструктор перемещения
-        vector(vector <Type> &&other){
-            return this->swap(other);
+        vector(vector<Type> &&other){
+            size_ = other.size_;
+            capacity_ = other.capacity_;
+            data_ = std::move(other.data_);
+
+            other.size_ = 0;
+            other.capacity_ = 0;
         }
         /// Конструктор через initializer_list
         vector(std::initializer_list <Type> ilist): size_(ilist.size()), capacity_(ilist.capacity()), data_(ilist.size()){
@@ -163,7 +168,7 @@ namespace bmstu{
 
         size_t size() const noexcept { return size_; }
 
-        size_t capacity_() const noexcept{ return capacity_; }
+        size_t capacity() const noexcept{ return capacity_; }
 
         bool empty() const noexcept{
             return (size_ == 0);
@@ -200,7 +205,7 @@ namespace bmstu{
                 array_bundle<Type> new_data(new_capacity);
 
                 for(std::size_t i = 0; i < size_; ++i){
-                    new.data[i] = data_[i];
+                    new_data[i] = data_[i];
                 }
 
                 data_.swap(new_data);
@@ -238,7 +243,7 @@ namespace bmstu{
                 reserve(new_capacity);
             }
 
-            data[size_] = value;
+            data_[size_] = value;
             ++size_;
         }
 
@@ -255,7 +260,7 @@ namespace bmstu{
 
         friend bool operator==(const vector<Type> &l, const vector<Type> &r){
             if(l.size_ == r.size_){
-                for(auto fl = l.begin(); fr = r.begin(); fl != l.end(); ++fl; ++fr){
+                for(auto fl = l.begin(), fr = r.begin(); fl != l.end(); ++fl, ++fr){
                     if(*fl != *fr){
                         return false;
                     }
@@ -296,6 +301,7 @@ namespace bmstu{
             os << "]";
             return os;
         }
+
         private:
             static bool lexicographical_compare_(const vector<Type> &l, const vector<Type> &r) {
                 auto fl = l.begin(),  fr = r.begin();
