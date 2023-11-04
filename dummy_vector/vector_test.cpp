@@ -1,1 +1,3 @@
-// SOON...  NOT UPDATED
+#include <gtest/gtest.h>
+#include "vector_template.h"
+

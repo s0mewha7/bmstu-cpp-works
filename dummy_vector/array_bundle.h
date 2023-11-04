@@ -5,7 +5,7 @@
 template<class T>
 class array_bundle {
 public:
-    array_bundle() = default;
+    array_bundle() noexcept = default;
 
     explicit array_bundle(size_t size) {
         if (size > 0) {
@@ -15,7 +15,7 @@ public:
             raw_ptr_ = nullptr;
         }
     }
-
+    
     explicit array_bundle(T *ptr) {
         raw_ptr_ = ptr;
     }
