@@ -106,12 +106,14 @@ namespace bmstu{
         }
         /// Оператор копирующего присваивания
         vector &operator=(vector <Type> &other){
-            if(this == &other){
-                return *this;
+            if (this != &other) {
+                if (other.empty()) {
+                    clear();
+                } else {
+                    bmstu::vector<Type> copied(other);
+                    this->swap(copied);
+                }
             }
-            size_ = other.size_;
-            capacity_ = other.capacity_;
-            data_ = other.data_;
             return *this;
         }
         /// Оператор перемещающего присваивания(move assignment operator)
@@ -213,23 +215,28 @@ namespace bmstu{
                 capacity_ = new_capacity;
             }
         }
-
-        iterator insert(const_iterator pos, Type &&value){
-            size_t index = pos - begin;
-
-            if(size_ == capacity_){
-                size_t new_capacity = (capacity_ == 0) ? 1 : capacity_ * 2;
-                reserve(new_capacity);
+        iterator insert(const_iterator pos, Type &&value) {
+            size_t n = pos - begin();
+            if (capacity_ == 0) {
+                reserve(1);
+            }
+            if (size_ == capacity_) {
+                capacity_ *= 2;
+            }
+            array_bundle<Type> tmp(capacity_);
+            Type *tmp_ptr = tmp.Get();
+            for (auto first = begin(); first != begin() + n; ++first, ++tmp_ptr) {
+                *tmp_ptr = std::move(*first);
             }
 
-            for(std::size_t i = size_; i > index; --i){
-                data_[i] = std::move(data_[i-1]);
+            tmp.Get()[n] = std::move(value);
+            tmp_ptr = tmp.Get() + n + 1;
+            for (auto first = begin() + n; first != end(); ++first, ++tmp_ptr) {
+                *tmp_ptr = std::move(*first);
             }
-
-            data_[index] = std::move(value);
-            ++size_;
-
-            return begin() + index;
+            data_.swap(tmp);
+            size_++;
+            return begin() + n;
         }
 
         iterator insert(const_iterator pos, const Type &value){
@@ -238,23 +245,17 @@ namespace bmstu{
         }
 
         void push_back(const Type &value){
-            if(size_ == capacity_){
-                size_t new_capacity = (capacity_ == 0) ? 1 : capacity_ * 2;
-                reserve(new_capacity);
-            }
-
-            data_[size_] = value;
-            ++size_;
-        }
-
-        void push_back(Type &&value){
             Type temp = value;
             push_back(std::move(temp));
         }
 
+        void push_back(Type &&value){
+            insert(end(), std::move(value));
+        }
+
         void pop_back() noexcept{
             if(!empty()){
-                --size;
+                --size_;
             }
         }
 
