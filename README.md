@@ -1,6 +1,6 @@
 # BMSTU-CPP-WORKS
 
-## BUILDING AND RUNING GOOGLE TEST!
+## BUILD AND RUN GOOGLE TEST!
 
 ```bash
 mkdir build && cd build

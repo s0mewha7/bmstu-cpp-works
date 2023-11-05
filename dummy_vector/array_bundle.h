@@ -20,7 +20,6 @@ public:
     }
 
     array_bundle(const array_bundle &other_bundle) = delete;
-
     array_bundle &operator=(const array_bundle &other_bundle) = delete;
 
     T &operator[](size_t index) noexcept {

@@ -80,23 +80,23 @@ namespace bmstu{
         using const_iterator = const iterator;
         vector() noexcept = default;
         vector(size_t size, const Type &value = Type{}) : size_(size), capacity_(size), data_(size){
-            /// BOBERT IS DEAD
+            auto first = begin(), last = end();
+            for(; first != last; ++first){
+                *first = value;
+            }
         }
         /// Конструктор копирования
         vector(const vector<Type> &other): size_(other.size()), capacity_(other.capacity()), data_(size_){
             std::copy(other.begin(),  other.end(), begin());
         }
+
         /// Конструктор перемещения
         vector(vector<Type> &&other){
-            size_ = other.size_;
-            capacity_ = other.capacity_;
-            data_ = std::move(other.data_);
-
-            other.size_ = 0;
-            other.capacity_ = 0;
+            this->swap(other);
         }
+
         /// Конструктор через initializer_list
-        vector(std::initializer_list <Type> ilist): size_(ilist.size()), capacity_(ilist.capacity()), data_(ilist.size()){
+        vector(std::initializer_list <Type> ilist): size_(ilist.size()), capacity_(ilist.size()), data_(ilist.size()){
             std::copy(ilist.begin() , ilist.end(),  begin());
         }
 
