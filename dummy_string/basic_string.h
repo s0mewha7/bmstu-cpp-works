@@ -5,7 +5,8 @@
 #define SIZE 1
 
 namespace bmstu {
-    template <class T> class string {
+    template <class T> 
+       class string {
         public:
             /// Конструктор по умолчанию
             string() {
