@@ -1,0 +1,90 @@
+StringTest.DefaultConstructor 1 0.00979553
+StringTest.DefaultConstructorW 1 0.00960384
+StringTest.InitializerListConstructorW 1 0.00983308
+StringTest.InitializerListConstructor 1 0.00830334
+StringTest.InitializerListConstructorNonEmpty 1 0.00855042
+StringTest.ConstructorSizeW 0 0
+StringTest.ConstructorSize 0 0
+StringTest.ConstructorSizeOne 0 0
+StringTest.FromCStr 1 0.0075556
+StringTest.FromWCStr 1 0.0102234
+StringTest.FromWCStrSymbol 1 0.00792477
+StringTest.USymbolsW 1 0.0097534
+StringTest.USymbol 1 0.00778059
+StringTest.USymbols 1 0.00759483
+StringTest.Empty 1 0.0102368
+StringTest.EmptyW 1 0.00772256
+StringTest.CopyAssignW 1 0.00780118
+StringTest.CopyConstructor 1 0.00884546
+StringTest.CopyAssignConstructor 1 0.00846148
+StringTest.MoveAssignConstructor 0 0
+StringTest.MoveAssignConstructor2 0 0
+StringTest.CopyAssignConstructor2 0 0
+StringTest.MoveAssignConstructorW 1 0.00723992
+StringTest.CStrCopyAssign 1 0.00951446
+StringTest.CStrCopyAssignW 0 0
+StringTest.AssignCStr 1 0.00915544
+StringTest.ConcatOpW 1 0.00785291
+StringTest.ConcatOp 1 0.00964965
+StringTest.OStream 1 0.00746989
+StringTest.OStreamW 1 0.0082242
+StringTest.IStream 0 0
+StringTest.IStreamW 0 0
+StringTest.IStreamWNewLine 1 0.00850316
+StringTest.ConcatSymbol 1 0.00941843
+StringTest.Item 1 0.00963449
+ConvertToOctalStringTest.PositiveNumber 1 0.00780832
+ConvertToOctalStringTest.NegativeNumber 1 0.0120019
+ConvertToOctalStringTest.Zero 1 0.0095585
+MobilePhoneTest.PrintMobilePhoneValidInput 1 0.00767958
+MobilePhoneTest.PrintMobilePhoneInvalidInput 1 0.0101142
+VectorСonstructor.Default 1 0.00809207
+VectorConstructor.InList 1 0.0116677
+VectorConstructor.Parametr 1 0.0104458
+VectorConstructor.Copy 1 0.00943783
+VectorConsturctor.Move 1 0.00822376
+VectorOperator.Copy 1 0.0102364
+VectorOperator.Move 1 0.00772927
+VectorIterator.BeginEnd 1 0.0100754
+VectorMethod.Empty 1 0.0107802
+VectorMethod.Clear 1 0.010064
+VectorMethod.Swap 1 0.00871775
+VectorMethod.SwapV2 1 0.00879202
+VectorMethod.Resize 1 0.00843469
+VectorMethod.Reserve 1 0.00948409
+VectorMethod.Insert 1 0.00917374
+VectorMethod.Push_back 1 0.0100218
+VectorMethod.Pop_back 1 0.0122765
+Operator.All_EQs 1 0.00997043
+DummyVector.one 1 0.0144062
+DummyVector.Init 1 0.0106578
+DummyVector.Init2 1 0.00988057
+DummyVector.InitList 1 0.0114285
+DummyVector.At 1 0.0115389
+DummyVector.Clear 1 0.0109147
+DummyVector.Resize 1 0.0136328
+DummyVector.Resize1 1 0.00991062
+DummyVector.Resize2 1 0.0114873
+DummyVector.Constructors 1 0.0114869
+DummyVector.Push 1 0.0102522
+DummyVector.CopyConstruct 1 0.00820491
+DummyVector.PopBack 1 0.00945582
+DummyVector.Capacity 1 0.0095383
+DummyVector.Iterate 1 0.0074162
+DummyVector.Compare 1 0.0109301
+DummyVector.Pushback2 1 0.00786427
+DummyVector.Swap 1 0.00757279
+DummyVector.Test1 1 0.00904598
+DummyVector.Insert 1 0.00798593
+DummyVector.Insert2 1 0.00969773
+DummyVector.Reserve 1 0.00997418
+---
+StringTest.ConstructorSizeW
+StringTest.ConstructorSize
+StringTest.ConstructorSizeOne
+StringTest.MoveAssignConstructor
+StringTest.MoveAssignConstructor2
+StringTest.CopyAssignConstructor2
+StringTest.CStrCopyAssignW
+StringTest.IStream
+StringTest.IStreamW

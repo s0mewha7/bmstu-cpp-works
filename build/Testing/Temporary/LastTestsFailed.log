@@ -1,0 +1,9 @@
+6:StringTest.ConstructorSizeW
+7:StringTest.ConstructorSize
+8:StringTest.ConstructorSizeOne
+20:StringTest.MoveAssignConstructor
+21:StringTest.MoveAssignConstructor2
+22:StringTest.CopyAssignConstructor2
+25:StringTest.CStrCopyAssignW
+31:StringTest.IStream
+32:StringTest.IStreamW

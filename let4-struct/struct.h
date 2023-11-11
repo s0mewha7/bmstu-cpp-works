@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-struct MobilePhone {
+struct MobilePhone
+{
     double weight;
     bool is_broken;
     double price;

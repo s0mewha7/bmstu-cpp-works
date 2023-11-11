@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <string> 
+#include <string>
 
 std::string charset = "1234567890AaBbCcDdEeFfHhGgXxYyZz";
 const size_t passwordLength = 5;
