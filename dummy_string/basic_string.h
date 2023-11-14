@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <cstddef>
-
+#include <sstream>
+#include <fstream> 
 
 #define SIZE 1
 
@@ -12,7 +13,8 @@ namespace bmstu {
 
     typedef basic_string<char> string;        // это наш обычный однобайтный string
     typedef basic_string<wchar_t> wstring;    // это наш двухбайтный string
-    typedef basic_string<char8_t> u8string;   // это наш однобайтный string для UTF-8
+    // Пофиксил char8_t на unsigned char из-за стандарта C++17 
+    typedef basic_string<unsigned char> u8string;   // это наш однобайтный string для UTF-8
     typedef basic_string<char16_t> u16string; // это наш двухбайтный string для UTF-16
     typedef basic_string<char32_t> u32string; // это наш четырехбайтный string для UTF-32
 
@@ -20,13 +22,11 @@ namespace bmstu {
     class basic_string {
     public:
         /// Конструктор по умолчанию
-        basic_string() {
-            ptr_ = new T[SIZE];
-            *ptr_ = static_cast<T>('\0');
-            size_ = 0;
+        basic_string() : size_(0), ptr_(new T[SIZE]) {
+            ptr_[0] = static_cast<T>('\0');
         }
+        // По-хорошему могли бы и сами реализовать, но пусть будет так
 
-        /// По-хорошему могли бы и сами реализовать, но пусть будет так
         basic_string(std::initializer_list<T> list) {
             size_ = list.size();
             ptr_ = new T[size_ + 1];
@@ -34,13 +34,15 @@ namespace bmstu {
         }
 
         basic_string(size_t size) {
+            ptr_ = new T[size + 1];
+            for(size_t i = 0; i < size; i++){
+                ptr_[i] = static_cast<T>(' ');
+            }
+            ptr_[size] = static_cast<T>('\0');
             size_ = size;
-            ptr_ = new T[size_ + 1];
-            ptr_[size_] = static_cast<T>('\0');
         }
 
         /// Конструктор с параметром "cи строкой"
-        /// тут была ошибка !  basic_string(const char *c_str) -> basic_string(const T *c_str)
         basic_string(const T *c_str) {
             size_ = strlen_(c_str);
             if (size_ != 0)
@@ -58,51 +60,62 @@ namespace bmstu {
         }
 
         /// Копирующий конструктор
-        basic_string(const basic_string &other) {
-            size_ = other.size_;
-            ptr_ = new T[size_ + 1];
-            copy_(ptr_, other.ptr_, size_);
+        basic_string(const basic_string<T> &other) {
+            if(this != &other){
+                clean_();
+                size_ = other.size_;
+                ptr_ = new T[size_ + 1];
+                ptr_[size_] = 0;
+                for(size_t i = 0; i < size_; i++){
+                    *(ptr_ + i) = other.c_str()[i];
+                }
+            }
         }
 
         /// Конструктор перемещения
-        basic_string(basic_string &&dying) noexcept {
-            size_ = dying.size_;
+        basic_string(basic_string<T> &&dying) noexcept {
+            clean_();
             ptr_ = dying.ptr_;
-
-            dying.ptr_ = nullptr;
-            dying.size_ = 0;
+            size_ = dying.size_;
+            dying.already_moved_();
         }
 
         /// Деструктор
-        ~basic_string() { clean_(); }
+        ~basic_string() {
+            delete[] ptr_; 
+        }
 
         /// Геттер на си-строку
-        const T *c_str() const { return ptr_; }
+        const T *c_str() const {
+            return static_cast<const T *>(ptr_);
+        }
 
         /// Геттер на размер
-        size_t size() const { return size_; }
+        size_t size() const {
+            return size_ ; 
+        }
 
         /// Оператор копирующего присваивания
         basic_string &operator=(const basic_string &other) {
-            if (this != &other)
-            {             // Проверка на самоприсваивание
+            if (this != &other) { // Проверка на самоприсваивание
                 clean_(); // Очищаем текущие ресурсы
                 size_ = other.size_;
                 ptr_ = new T[size_ + 1];
-                copy_(ptr_, other.ptr_, size_);
+                ptr_[size_] = 0;
+                for(size_t i = 0; i < size_; i++){
+                    *(ptr_ + i) = other.c_str()[i];
+                }
             }
             return *this; // Возвращаем *this для поддержки цепочки присваиваний
         }
 
         /// Оператор перемещающего присваивания
-        basic_string &operator=(basic_string &&other) {
-            if (this != &other)
-            {
-                clean_();
+        basic_string& operator=(basic_string<T> &&other) noexcept {
+            if (this != &other) {
+                clean_();  // Освобождаем текущие ресурсы
                 size_ = other.size_;
-                ptr_ = new T[size_ + 1];
-                other.size_ = 0;
-                other.ptr_ = nullptr;
+                ptr_ = other.ptr_;
+                other.already_moved_();
             }
             return *this;
         }
@@ -125,8 +138,7 @@ namespace bmstu {
         }
 
         /// Оператор конкатенации
-        friend bmstu::basic_string<T>
-        operator+(const bmstu::basic_string<T> &left, const bmstu::basic_string<T> &right) {
+        friend bmstu::basic_string<T> operator+(const bmstu::basic_string<T> &left, const bmstu::basic_string<T> &right) {
             bmstu::basic_string<T> output;
             output.size_ = left.size_ + right.size_;
             output.ptr_ = new T[output.size_ + 1];
@@ -155,7 +167,6 @@ namespace bmstu {
         /// Перегрузка оператора >>
         friend std::basic_istream<T> &operator>>(std::basic_istream<T> &is, basic_string &obj) {
             obj.clean_(); // Используем функцию clean_ для очистки содержимого
-
             T input_char;
             while (is.get(input_char))
             {
@@ -170,13 +181,12 @@ namespace bmstu {
 
         /// Перегрузка оператора +=
         basic_string &operator+=(const basic_string &other) {
-            int new_size = size_ + other.size_;
+            size_t new_size = size_ + other.size_;
             T *new_ptr = new T[new_size + 1];
 
             copy_(new_ptr, ptr_, size_);
             copy_(new_ptr + size_, other.ptr_, other.size_);
             new_ptr[new_size] = static_cast<T>('\0');
-
             // Освобождаем старую память и обновляем указатель и размер
             clean_();
             ptr_ = new_ptr;
@@ -184,10 +194,8 @@ namespace bmstu {
 
             return *this;
         }
-
-        /// тут T
         basic_string &operator+=(T symbol) {
-            int new_size = size_ + 1;
+            size_t new_size = size_ + 1;
             T *new_ptr = new T[new_size + 1];
 
             copy_(new_ptr, ptr_, size_);
@@ -200,16 +208,18 @@ namespace bmstu {
 
             return *this;
         }
-
         // Нахождение значения по индексу
         T &operator[](size_t index) {
-            return ptr_[index];
+            if(index < size_){
+                return *(ptr_ + index);
+            }
+            throw std::runtime_error("Index out of size");
         }
 
     private:
         static size_t strlen_(const T *str) {
             size_t length = 0;
-            while (str[length] != '\0')
+            while (str[length] != static_cast<T>('\0'))
             {
                 length++;
             }
@@ -221,13 +231,19 @@ namespace bmstu {
             {
                 destintaion[i] = current_c[i];
             }
-            destintaion[length] = '\0';
+            destintaion[length] = static_cast<T>('\0');
         }
 
         void clean_() {
             size_ = 0;
             ptr_ = nullptr;
             delete[] ptr_;
+        }
+
+        void already_moved_(){
+            ptr_ = new T[SIZE];
+            *ptr_ = static_cast<T>('\0');
+            size_ = 0;
         }
 
         T *ptr_ = nullptr;

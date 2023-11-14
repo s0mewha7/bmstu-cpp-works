@@ -265,13 +265,17 @@ TEST(StringTest, CopyAssignConstructor) {
 TEST(StringTest, MoveAssignConstructor) {
     bmstu::string str = "str";
     bmstu::string str2 = "other";
+    ASSERT_STREQ(str.c_str(), "str");
+    ASSERT_EQ(str.size(), sizeof("str") - 1);
+    ASSERT_STREQ(str2.c_str(), "other");
+    ASSERT_EQ(str2.size(), sizeof("other") - 1);
     str2 = std::move(str);
     ASSERT_STREQ(str2.c_str(), "str");
     ASSERT_EQ(str2.size(), sizeof("str") - 1);
-
     ASSERT_STREQ(str.c_str(), "");
     ASSERT_EQ(str.size(), 0);
 }
+
 
 TEST(StringTest, MoveAssignConstructor2) {
     bmstu::string str = "str";
@@ -352,9 +356,10 @@ TEST(StringTest, IStream) {
     std::stringstream ss;
     ss.str("Value of\nstring");
     bmstu::string a_str;
-    std::string a;
     ss >> a_str;
-    ASSERT_STREQ(a_str.c_str(), "Value of");
+    ASSERT_STREQ(a_str.c_str(), "Value");
+    ss >> a_str;
+    ASSERT_STREQ(a_str.c_str(), "of");
 }
 
 TEST(StringTest, IStreamW) {
@@ -362,7 +367,9 @@ TEST(StringTest, IStreamW) {
     ss.str(L"Value of\nстрока");
     bmstu::wstring a_str;
     ss >> a_str;
-    ASSERT_STREQ(a_str.c_str(), L"Value of");
+    ASSERT_STREQ(a_str.c_str(), L"Value");
+    ss >> a_str; // Дополнительное чтение для второго слова
+    ASSERT_STREQ(a_str.c_str(), L"of");
 }
 
 TEST(StringTest, IStreamWNewLine) {
