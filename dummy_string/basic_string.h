@@ -13,8 +13,7 @@ namespace bmstu {
 
     typedef basic_string<char> string;        // это наш обычный однобайтный string
     typedef basic_string<wchar_t> wstring;    // это наш двухбайтный string
-    // Пофиксил char8_t на unsigned char из-за стандарта C++17 
-    typedef basic_string<unsigned char> u8string;   // это наш однобайтный string для UTF-8
+    typedef basic_string<char8_t> u8string;   // это наш однобайтный string для UTF-8
     typedef basic_string<char16_t> u16string; // это наш двухбайтный string для UTF-16
     typedef basic_string<char32_t> u32string; // это наш четырехбайтный string для UTF-32
 
@@ -25,8 +24,6 @@ namespace bmstu {
         basic_string() : size_(0), ptr_(new T[SIZE]) {
             ptr_[0] = static_cast<T>('\0');
         }
-        // По-хорошему могли бы и сами реализовать, но пусть будет так
-
         basic_string(std::initializer_list<T> list) {
             size_ = list.size();
             ptr_ = new T[size_ + 1];
@@ -149,16 +146,6 @@ namespace bmstu {
 
             return output;
         }
-
-        /// А теперь жуть ostream для вывода 1 байтного string
-        /// wstream для вывода 2 байтного string
-        /// u8stream для вывода 1 байтного string для UTF-8
-        /// u16stream для вывода 2 байтного string для UTF-16
-
-        /// Оператор вывода std::basic_ostream<T> и почему система типов сработает
-        /// и сматчит типы std::ostream и std::basic_ostream<char> ... можете погуглить
-        /// почему так происходит и почему так сделано, в следущем семестре узнаем
-        /// ПОЛНОЦЕННОЕ ООП 2 семестр
         friend std::basic_ostream<T> &operator<<(std::basic_ostream<T> &os, const basic_string &obj) {
             os << obj.ptr_;
             return os;
