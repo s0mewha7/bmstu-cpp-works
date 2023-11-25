@@ -4,6 +4,7 @@
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION
 
 using namespace bmstu;
+/*
  TEST(StringTest, DefaultConstructor) {
      string str;
      ASSERT_STREQ(str.c_str(), "");
@@ -134,7 +135,7 @@ using namespace bmstu;
      EXPECT_EQ(str.size(), strlen(expected_result_cstr));
      EXPECT_STREQ(str.c_str(), expected_result_cstr);
  }
-
+*/
 #include <sstream>
 
 TEST(StringTest, DefaultConstructor) {
