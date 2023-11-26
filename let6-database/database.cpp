@@ -2,9 +2,6 @@
 // Created by somewhat on 25.11.23.
 //
 
-#ifndef BMSTU_WORKS_DATABASE_H
-#define BMSTU_WORKS_DATABASE_H
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -44,35 +41,26 @@ std::vector<Student> readStudentsFromFile(const std::string& file_path) {
 
     size_t num_records;
     file.read(reinterpret_cast<char*>(&num_records), sizeof(num_records));
-
     std::vector<Student> students;
-
     for (int i = 0; i < num_records; ++i) {
         char name_buffer[256];
         file.read(name_buffer, sizeof(name_buffer));
         std::string name(name_buffer);
-
         int age, rating;
         file.read(reinterpret_cast<char*>(&age), sizeof(age));
         file.read(reinterpret_cast<char*>(&rating), sizeof(rating));
-
         students.emplace_back(name, age, rating);
     }
-
     file.close();
-
     return students;
 }
-
 int main6(int argc, char* argv[]) {
     if (argc != 3) {
         std::cerr << "Usage: " << argv[0] << " <file_path> <option>" << std::endl;
         return 1;
     }
-
     std::string file_path = argv[1];
     char option = argv[2][1];
-
     std::vector<Student> students;
     try {
         students = readStudentsFromFile(file_path);
@@ -80,7 +68,6 @@ int main6(int argc, char* argv[]) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
-
     switch (option) {
         case 'a':
             std::cout << "TOP 15 oldest students:" << std::endl;
@@ -104,12 +91,9 @@ int main6(int argc, char* argv[]) {
             std::cerr << "Invalid option: " << option << std::endl;
             return 1;
     }
-
     for (int i = 0; i < std::min(15, static_cast<int>(students.size())); ++i) {
         std::cout << students[i].name << " - Age: " << students[i].age << ", Rating: " << students[i].rating << std::endl;
     }
-
     return 0;
 }
 
-#endif //BMSTU_WORKS_DATABASE_H
