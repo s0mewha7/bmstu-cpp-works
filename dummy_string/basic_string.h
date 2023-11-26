@@ -4,15 +4,19 @@
 #include <cstddef>
 #include <sstream>
 #include <fstream>
-
 namespace bmstu {
+    // Forward declaration of basic_string
     template <class T>
     class basic_string;
+
+    // Typedefs for specific instantiations
     typedef basic_string<char> string;
     typedef basic_string<wchar_t> wstring;
     typedef basic_string<char8_t> u8string;
     typedef basic_string<char16_t> u16string;
     typedef basic_string<char32_t> u32string;
+
+    // Definition of the basic_string template
     template <class T>
     class basic_string {
     public:
