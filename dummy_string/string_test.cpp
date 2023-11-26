@@ -1,6 +1,7 @@
-#include <gtest/gtest.h>
-#include "basic_string.h"
-#include <sstream>
+#include "basic_string.h"   // Заголовочные файлы текущего проекта
+#include <gtest/gtest.h>    // Заголовочные файлы Google Test
+#include <sstream>          // Заголовочные файлы стандартной библиотеки C++
+
 
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION
 TEST(StringTest, DefaultConstructor) {
@@ -102,7 +103,6 @@ TEST(StringTest, EmptyW) {
 }
 
 TEST(StringTest, CopyAssignW) {
-
     bmstu::wstring empty(L"Non Empty строка");
     bmstu::wstring nonempty = empty;
     ASSERT_STREQ(nonempty.c_str(), L"Non Empty строка");
@@ -110,7 +110,6 @@ TEST(StringTest, CopyAssignW) {
 }
 
 TEST(StringTest, CopyConstructor) {
-
     bmstu::string empty("Non Empty строка");
     bmstu::string nonempty = empty;
     ASSERT_STREQ(nonempty.c_str(), "Non Empty строка");
@@ -118,7 +117,6 @@ TEST(StringTest, CopyConstructor) {
 }
 
 TEST(StringTest, CopyAssignConstructor) {
-
     bmstu::string *str = new bmstu::string("str");
     bmstu::string *nonempty = new bmstu::string;
     *nonempty = *str;
