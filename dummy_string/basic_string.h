@@ -87,13 +87,13 @@ class basic_string {
 
     /// Геттер на размер
     [[nodiscard]] size_t size() const {
-        return size_ ;
+        return size_;
     }
 
     /// Оператор копирующего присваивания
     basic_string &operator=(const basic_string &other) {
-        if (this != &other) { // Проверка на самоприсваивание
-            clean_(); // Очищаем текущие ресурсы
+        if (this != &other) {
+            clean_();
             size_ = other.size_;
             ptr_ = new T[size_ + 1];
             ptr_[size_] = 0;
@@ -101,7 +101,7 @@ class basic_string {
                 *(ptr_ + i) = other.c_str()[i];
             }
         }
-        return *this; // Возвращаем *this для поддержки цепочки присваиваний
+        return *this;
     }
 
     /// Оператор перемещающего присваивания
