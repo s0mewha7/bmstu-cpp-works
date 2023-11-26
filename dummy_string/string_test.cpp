@@ -1,6 +1,7 @@
 #include "basic_string.h"   // Заголовочные файлы текущего проекта
 #include <gtest/gtest.h>    // Заголовочные файлы Google Test
-#include <sstream>          // Заголовочные файлы стандартной библиотеки C++
+#include <cstddef>           // Заголовочные файлы стандартной библиотеки C
+#include <iostream>          // Заголовочные файлы стандартной библиотеки C++
 
 
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION
@@ -232,7 +233,7 @@ TEST(StringTest, IStreamW) {
     bmstu::wstring a_str;
     ss >> a_str;
     ASSERT_STREQ(a_str.c_str(), L"Value");
-    ss >> a_str; // Дополнительное чтение для второго слова
+    ss >> a_str;  // Дополнительное чтение для второго слова
     ASSERT_STREQ(a_str.c_str(), L"of");
 }
 
