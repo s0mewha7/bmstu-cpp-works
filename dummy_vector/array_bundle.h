@@ -1,15 +1,17 @@
 #pragma once
+
 #include <cstdlib>
 
-template <class T>
+template<typename T>
 class array_bundle {
- public:
-    array_bundle() noexcept = default;
+public:
+    array_bundle() = default;
+
     explicit array_bundle(size_t size) {
-        if (size > 0) {
-            raw_ptr_ = new T[size]{};
-        } else {
+        if (size == 0) {
             raw_ptr_ = nullptr;
+        } else {
+            raw_ptr_ = new T[size]{};
         }
     }
 
@@ -18,6 +20,7 @@ class array_bundle {
     }
 
     array_bundle(const array_bundle &other_bundle) = delete;
+
     array_bundle &operator=(const array_bundle &other_bundle) = delete;
 
     T &operator[](size_t index) noexcept {
@@ -32,26 +35,24 @@ class array_bundle {
         return (raw_ptr_ != nullptr);
     }
 
+    T *Get() const noexcept {
+        return raw_ptr_;
+    }
+
     T *Release() noexcept {
         T *ptr = raw_ptr_;
         raw_ptr_ = nullptr;
         return ptr;
     }
 
-    T *Get() const noexcept {
-        return raw_ptr_;
-    }
-
     ~array_bundle() {
-        if (raw_ptr_ != nullptr) {
-            delete[] raw_ptr_;
-        }
+        delete[]raw_ptr_;
     }
 
     void swap(array_bundle &other) noexcept {
         std::swap(raw_ptr_, other.raw_ptr_);
     }
 
- private:
+private:
     T *raw_ptr_ = nullptr;
 };

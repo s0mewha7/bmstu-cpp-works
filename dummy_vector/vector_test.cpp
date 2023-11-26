@@ -380,19 +380,15 @@ TEST(DummyVector, Capacity) {
 }
 
 TEST(DummyVector, Iterate) {
-    // Итерирование по bmstu::dummy_vector
     {
-        // Пустой вектор
         {
             bmstu::dummy_vector<int> v;
             ASSERT_EQ(v.begin(), nullptr);
             ASSERT_EQ(v.end(), nullptr);
         }
 
-        // Непустой вектор
         {
             bmstu::dummy_vector<int> v(10, 42);
-//            ASSERT_TRUE(v.begin());
             ASSERT_EQ(*v.begin(), 42);
             ASSERT_EQ(v.end(), v.begin() + v.size());
         }
@@ -459,7 +455,6 @@ TEST(DummyVector, Test1) {
 }
 
 TEST(DummyVector, Insert) {
-    // Вставка элементов
     {
         bmstu::dummy_vector<int> v{1, 2, 3, 4};
         auto vit = v.begin() + 3;
@@ -470,7 +465,6 @@ TEST(DummyVector, Insert) {
 
 TEST(DummyVector, Insert2) {
     // Вставка элементов
-
     bmstu::dummy_vector<int> v;
     v.insert(v.begin(), 42);
     ASSERT_EQ(v, (bmstu::dummy_vector<int>{42}));
@@ -495,29 +489,20 @@ TEST(DummyVector, Reserve) {
 
     {
         bmstu::dummy_vector<int> v;
-        // зарезервируем 5 мест в векторе
         v.reserve(5);
         ASSERT_EQ(v.capacity(), 5);
         ASSERT_TRUE(v.empty());
-
-        // попытаемся уменьшить capacity до 1
         v.reserve(1);
-        // capacity должно остаться прежним
         ASSERT_EQ(v.capacity(), 5);
-        // поместим 10 элементов в вектор
         for (int i = 0; i < 10; ++i) {
             v.push_back(i);
         }
         ASSERT_EQ(v.size(), 10);
-        // увеличим capacity до 100
         v.reserve(100);
-        // проверим, что размер не поменялся
         ASSERT_EQ(v.size(), 10);
         ASSERT_EQ(v.capacity(), 100);
-        // проверим, что элементы на месте
         for (int i = 0; i < 10; ++i) {
             ASSERT_EQ(v[i], i);
         }
     }
 }
-
