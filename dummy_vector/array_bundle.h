@@ -4,7 +4,7 @@
 
 template<typename T>
 class array_bundle {
-public:
+ public:
     array_bundle() = default;
 
     explicit array_bundle(size_t size) {
@@ -53,6 +53,7 @@ public:
         std::swap(raw_ptr_, other.raw_ptr_);
     }
 
-private:
+ private:
     T *raw_ptr_ = nullptr;
+    
 };
