@@ -3,25 +3,23 @@
 #include <iostream>
 #include <cstddef>
 #include <sstream>
-#include <fstream> 
-
-#define SIZE 1
+#include <fstream>
 
 namespace bmstu {
     template <class T>
     class basic_string;
 
-    typedef basic_string<char> string;        // это наш обычный однобайтный string
-    typedef basic_string<wchar_t> wstring;    // это наш двухбайтный string
-    typedef basic_string<char8_t> u8string;   // это наш однобайтный string для UTF-8
-    typedef basic_string<char16_t> u16string; // это наш двухбайтный string для UTF-16
-    typedef basic_string<char32_t> u32string; // это наш четырехбайтный string для UTF-32
+    typedef basic_string<char> string;
+    typedef basic_string<wchar_t> wstring;
+    typedef basic_string<char8_t> u8string;
+    typedef basic_string<char16_t> u16string;
+    typedef basic_string<char32_t> u32string;
 
     template <class T>
     class basic_string {
     public:
         /// Конструктор по умолчанию
-        basic_string() : size_(0), ptr_(new T[SIZE]) {
+        basic_string() : size_(0), ptr_(new T[1]) {
             ptr_[0] = static_cast<T>('\0');
         }
         basic_string(std::initializer_list<T> list) {
@@ -32,7 +30,7 @@ namespace bmstu {
 
         basic_string(size_t size) {
             ptr_ = new T[size + 1];
-            for(size_t i = 0; i < size; i++){
+            for(size_t i = 0; i < size; i++) {
                 ptr_[i] = static_cast<T>(' ');
             }
             ptr_[size] = static_cast<T>('\0');
@@ -42,15 +40,13 @@ namespace bmstu {
         /// Конструктор с параметром "cи строкой"
         basic_string(const T *c_str) {
             size_ = strlen_(c_str);
-            if (size_ != 0)
-            {
+            if (size_ != 0) {
                 ptr_ = new T[size_ + 1];
                 ptr_[size_] = static_cast<T>('\0');
                 copy_(ptr_, c_str, size_);
             }
-            else
-            {
-                ptr_ = new T[SIZE];
+            else {
+                ptr_ = new T[1];
                 *ptr_ = static_cast<T>('\0');
                 size_ = 0;
             }
@@ -58,7 +54,7 @@ namespace bmstu {
 
         /// Копирующий конструктор
         basic_string(const basic_string<T> &other) {
-            if(this != &other){
+            if(this != &other) {
                 clean_();
                 size_ = other.size_;
                 ptr_ = new T[size_ + 1];
@@ -99,7 +95,7 @@ namespace bmstu {
                 size_ = other.size_;
                 ptr_ = new T[size_ + 1];
                 ptr_[size_] = 0;
-                for(size_t i = 0; i < size_; i++){
+                for(size_t i = 0; i < size_; i++) {
                     *(ptr_ + i) = other.c_str()[i];
                 }
             }
@@ -119,15 +115,13 @@ namespace bmstu {
 
         /// Оператор присваивания си строки
         basic_string &operator=(const char *c_str) {
-            if (c_str != nullptr)
-            {
+            if (c_str != nullptr) {
                 clean_();
                 size_ = strlen_(c_str);
                 ptr_ = new T[size_ + 1];
                 copy_(ptr_, c_str, size_);
             }
-            else
-            {
+            else {
                 clean_();
             }
 
@@ -155,10 +149,8 @@ namespace bmstu {
         friend std::basic_istream<T> &operator>>(std::basic_istream<T> &is, basic_string &obj) {
             obj.clean_(); // Используем функцию clean_ для очистки содержимого
             T input_char;
-            while (is.get(input_char))
-            {
-                if (input_char == ' ' || input_char == '\n' || input_char == '\t')
-                {
+            while (is.get(input_char)) {
+                if (input_char == ' ' || input_char == '\n' || input_char == '\t') {
                     break; // Прекращаем считывание при пробеле, новой строке или табуляции
                 }
                 obj += input_char; // Добавляем символ к обьекту
@@ -197,7 +189,7 @@ namespace bmstu {
         }
         // Нахождение значения по индексу
         T &operator[](size_t index) {
-            if(index < size_){
+            if(index < size_) {
                 return *(ptr_ + index);
             }
             throw std::runtime_error("Index out of size");
@@ -206,16 +198,14 @@ namespace bmstu {
     private:
         static size_t strlen_(const T *str) {
             size_t length = 0;
-            while (str[length] != static_cast<T>('\0'))
-            {
+            while (str[length] != static_cast<T>('\0')) {
                 length++;
             }
             return length;
         }
 
         static void copy_(T *destintaion, const T *current_c, size_t length) {
-            for (size_t i = 0; i < length; ++i)
-            {
+            for (size_t i = 0; i < length; ++i) {
                 destintaion[i] = current_c[i];
             }
             destintaion[length] = static_cast<T>('\0');
@@ -227,8 +217,8 @@ namespace bmstu {
             delete[] ptr_;
         }
 
-        void already_moved_(){
-            ptr_ = new T[SIZE];
+        void already_moved_() {
+            ptr_ = new T[1];
             *ptr_ = static_cast<T>('\0');
             size_ = 0;
         }
