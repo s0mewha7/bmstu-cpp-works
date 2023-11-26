@@ -72,7 +72,7 @@ class dummy_vector {
             m_ptr = m_ptr - n;
             return *this;
         }
-    private:
+     private:
         pointer m_ptr;
     };
 
