@@ -2,8 +2,8 @@
 // Created by somewhat on 26.11.23.
 //
 
-#ifndef BMSTU_WORKS_STRING_TEST_H
-#define BMSTU_WORKS_STRING_TEST_H
+#ifndef DUMMY_STRING_STRING_TEST_H_
+#define DUMMY_STRING_STRING_TEST_H_
 
 #include "basic_string.h"   // Заголовочные файлы текущего проекта
 #include <gtest/gtest.h>    // Заголовочные файлы Google Test
@@ -11,4 +11,4 @@
 #include <iostream>          // Заголовочные файлы стандартной библиотеки C++
 
 
-#endif //BMSTU_WORKS_STRING_TEST_H
+#endif // DUMMY_STRING_STRING_TEST_H_
