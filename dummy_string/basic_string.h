@@ -196,7 +196,7 @@ class basic_string {
         throw std::runtime_error("Index out of size");
     }
 
-private:
+ private:
     static size_t strlen_(const T *str) {
         size_t length = 0;
         while (str[length] != static_cast<T>('\0')) {
