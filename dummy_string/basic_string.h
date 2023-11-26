@@ -185,12 +185,12 @@ class basic_string {
         delete[] ptr_;    // Освобождаем старую память
         ptr_ = new_ptr;   // Обновляем указатель
         size_ = new_size; // Обновляем размер
-
         return *this;
     }
+
     // Нахождение значения по индексу
     T &operator[](size_t index) {
-        if(index < size_) {
+        if (index < size_) {
             return *(ptr_ + index);
         }
         throw std::runtime_error("Index out of size");
