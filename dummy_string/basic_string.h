@@ -8,13 +8,11 @@
 namespace bmstu {
     template <class T>
     class basic_string;
-
     typedef basic_string<char> string;
     typedef basic_string<wchar_t> wstring;
     typedef basic_string<char8_t> u8string;
     typedef basic_string<char16_t> u16string;
     typedef basic_string<char32_t> u32string;
-
     template <class T>
     class basic_string {
     public:
