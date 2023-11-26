@@ -1,3 +1,4 @@
+// array_bundle
 #pragma once
 
 #include <cstdlib>
@@ -56,3 +57,4 @@ class array_bundle {
  private:
     T *raw_ptr_ = nullptr;
 };
+// array_bundle
