@@ -97,7 +97,7 @@ class basic_string {
             size_ = other.size_;
             ptr_ = new T[size_ + 1];
             ptr_[size_] = 0;
-            for(size_t i = 0; i < size_; i++) {
+            for (size_t i = 0; i < size_; i++) {
                 *(ptr_ + i) = other.c_str()[i];
             }
         }
@@ -148,13 +148,13 @@ class basic_string {
 
     /// Перегрузка оператора >>
     friend std::basic_istream<T> &operator>>(std::basic_istream<T> &is, basic_string &obj) {
-        obj.clean_(); // Используем функцию clean_ для очистки содержимого
+        obj.clean_();  // Используем функцию clean_ для очистки содержимого
         T input_char;
         while (is.get(input_char)) {
             if (input_char == ' ' || input_char == '\n' || input_char == '\t') {
-                break; // Прекращаем считывание при пробеле, новой строке или табуляции
+                break;  // Прекращаем считывание при пробеле, новой строке или табуляции
             }
-            obj += input_char; // Добавляем символ к обьекту
+            obj += input_char;  // Добавляем символ к объекту
         }
         return is;
     }
