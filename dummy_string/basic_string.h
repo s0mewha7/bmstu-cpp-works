@@ -33,7 +33,7 @@ class basic_string {
 
     explicit basic_string(size_t size) {
         ptr_ = new T[size + 1];
-        for(size_t i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             ptr_[i] = static_cast<T>(' ');
         }
         ptr_[size] = static_cast<T>('\0');
@@ -48,7 +48,8 @@ class basic_string {
             ptr_[size_] = static_cast<T>('\0');
             copy_(ptr_, c_str, size_);
         }
-        else {
+        else
+        {
             ptr_ = new T[1];
             *ptr_ = static_cast<T>('\0');
             size_ = 0;
@@ -57,16 +58,16 @@ class basic_string {
 
     /// Копирующий конструктор
     basic_string(const basic_string<T> &other) {
-        if(this != &other) {
-                clean_();
-                size_ = other.size_;
-                ptr_ = new T[size_ + 1];
-                ptr_[size_] = 0;
-                for(size_t i = 0; i < size_; i++){
-                    *(ptr_ + i) = other.c_str()[i];
-                }
+        if (this != &other) {
+            clean_();
+            size_ = other.size_;
+            ptr_ = new T[size_ + 1];
+            ptr_[size_] = 0;
+            for (size_t i = 0; i < size_; i++) {
+                *(ptr_ + i) = other.c_str()[i];
             }
         }
+    }
 
     /// Конструктор перемещения
     basic_string(basic_string<T> &&dying) noexcept {
