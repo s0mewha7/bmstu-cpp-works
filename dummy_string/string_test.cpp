@@ -1,7 +1,4 @@
-#include "basic_string.h"   // Заголовочные файлы текущего проекта
-#include <gtest/gtest.h>    // Заголовочные файлы Google Test
-#include <cstddef>           // Заголовочные файлы стандартной библиотеки C
-#include <iostream>          // Заголовочные файлы стандартной библиотеки C++
+#include "string_test.h"    // Дополнительные заголовочные файлы текущего проекта (если есть)
 
 
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION

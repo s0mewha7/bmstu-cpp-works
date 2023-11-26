@@ -14,7 +14,8 @@ add_executable(${TEST_NAME} dummy_string/basic_string.h dummy_string/string_test
 let4-struct/struct-to-XML.h let4-struct/xml_format_test.cpp let4-struct/struct.h let5-JacquesFresco/bruteforce.cpp let5-JacquesFresco/function.h
 dummy_vector/array_bundle.h dummy_vector/vector_template.h dummy_vector/vector_test.cpp
         let6-database/database.cpp
-        let7-palindrome/palidrome_check.cpp)
+        let7-palindrome/palidrome_check.cpp
+        dummy_string/string_test.h)
 target_link_libraries(${TEST_NAME} gtest_main)
 enable_testing()
 include(GoogleTest)
