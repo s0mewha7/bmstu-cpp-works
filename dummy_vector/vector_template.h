@@ -14,9 +14,7 @@ class dummy_vector {
         using pointer = Type *;
         using reference = Type &;
 
-        iterator(pointer ptr) : m_ptr(ptr) {
-
-        }
+        explicit iterator(pointer ptr) : m_ptr(ptr) {}
 
         reference operator*() const {
             return *m_ptr;
@@ -41,13 +39,13 @@ class dummy_vector {
             return *this;
         }
 
-        iterator operator++(int) {
+        const iterator operator++(int) {
             iterator tmp = *this;
             ++(*this);
             return tmp;
         }
 
-        iterator operator--(int) {
+        const iterator operator--(int) {
             iterator tmp = *this;
             --(*this);
             return tmp;
@@ -58,7 +56,7 @@ class dummy_vector {
         }
 
         friend bool operator!=(const iterator &a, const iterator &b) {
-            return !(a == b);
+            return a != b;
         }
 
         friend difference_type operator-(const iterator &a, const iterator &b) {
