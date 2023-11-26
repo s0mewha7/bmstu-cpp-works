@@ -47,9 +47,7 @@ class basic_string {
             ptr_ = new T[size_ + 1];
             ptr_[size_] = static_cast<T>('\0');
             copy_(ptr_, c_str, size_);
-        }
-        else
-        {
+        } else {
             ptr_ = new T[1];
             *ptr_ = static_cast<T>('\0');
             size_ = 0;
@@ -83,7 +81,7 @@ class basic_string {
     }
 
     /// Геттер на си-строку
-    const T *c_str() const {
+    [[nodiscard]] const T *c_str() const {
         return static_cast<const T *>(ptr_);
     }
 
@@ -124,8 +122,7 @@ class basic_string {
             size_ = strlen_(c_str);
             ptr_ = new T[size_ + 1];
             copy_(ptr_, c_str, size_);
-        }
-        else {
+        } else {
             clean_();
         }
 
