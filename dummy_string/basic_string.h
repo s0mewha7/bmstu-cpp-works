@@ -184,7 +184,7 @@ class basic_string {
 
         delete[] ptr_;    // Освобождаем старую память
         ptr_ = new_ptr;   // Обновляем указатель
-        size_ = new_size; // Обновляем размер
+        size_ = new_size;  // Обновляем размер
         return *this;
     }
 
@@ -227,4 +227,4 @@ private:
     T *ptr_ = nullptr;
     size_t size_;
 };
-}
+} // namespace bmstu
