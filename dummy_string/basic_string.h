@@ -227,4 +227,5 @@ class basic_string {
     T *ptr_ = nullptr;
     size_t size_;
 };
-} // namespace bmstu
+}  // namespace bmstu
+
