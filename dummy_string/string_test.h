@@ -11,5 +11,4 @@
 #include <cstddef>           // Заголовочные файлы стандартной библиотеки C
 #include <iostream>          // Заголовочные файлы стандартной библиотеки C++
 
-
-#endif // DUMMY_STRING_STRING_TEST_H_
+#endif  // DUMMY_STRING_STRING_TEST_H_
