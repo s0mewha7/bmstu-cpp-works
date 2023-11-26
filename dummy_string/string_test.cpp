@@ -1,4 +1,4 @@
-#include "string_test.h"    // Дополнительные заголовочные файлы текущего проекта (если есть)
+#include "string_test.h"
 
 
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION

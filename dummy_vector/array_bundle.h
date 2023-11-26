@@ -8,8 +8,7 @@ public:
     explicit array_bundle(size_t size) {
         if (size > 0) {
             raw_ptr_ = new T[size]{};
-        }
-        else {
+        } else {
             raw_ptr_ = nullptr;
         }
     }
@@ -17,6 +16,7 @@ public:
     explicit array_bundle(T *ptr) {
         raw_ptr_ = ptr;
     }
+
     array_bundle(const array_bundle &other_bundle) = delete;
     array_bundle &operator=(const array_bundle &other_bundle) = delete;
 
