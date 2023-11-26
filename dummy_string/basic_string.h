@@ -4,26 +4,28 @@
 #include <cstddef>
 #include <sstream>
 #include <fstream>
+
 namespace bmstu {
-// Forward declaration of basic_string
-template <class T>
-class basic_string;
+    // Forward declaration of basic_string
+    template <class T>
+    class basic_string;
 
-// Typedefs for specific instantiations
-typedef basic_string<char> string;
-typedef basic_string<wchar_t> wstring;
-typedef basic_string<char8_t> u8string;
-typedef basic_string<char16_t> u16string;
-typedef basic_string<char32_t> u32string;
+    // Typedefs for specific instantiations
+    typedef basic_string<char> string;
+    typedef basic_string<wchar_t> wstring;
+    typedef basic_string<char8_t> u8string;
+    typedef basic_string<char16_t> u16string;
+    typedef basic_string<char32_t> u32string;
 
-// Definition of the basic_string template
-template <class T>
-class basic_string {
+    // Definition of the basic_string template
+    template <class T>
+    class basic_string {
     public:
         basic_string() : size_(0), ptr_(new T[1]) {
             ptr_[0] = static_cast<T>('\0');
         }
-        basic_string(std::initializer_list<T> list) {
+
+        [[maybe_unused]] basic_string(std::initializer_list<T> list) {
             size_ = list.size();
             ptr_ = new T[size_ + 1];
             copy_(ptr_, list.begin(), size_);
@@ -56,15 +58,15 @@ class basic_string {
         /// Копирующий конструктор
         basic_string(const basic_string<T> &other) {
             if(this != &other) {
-                clean_();
-                size_ = other.size_;
-                ptr_ = new T[size_ + 1];
-                ptr_[size_] = 0;
-                for(size_t i = 0; i < size_; i++) {
-                    *(ptr_ + i) = other.c_str()[i];
+                    clean_();
+                    size_ = other.size_;
+                    ptr_ = new T[size_ + 1];
+                    ptr_[size_] = 0;
+                    for(size_t i = 0; i < size_; i++){
+                        *(ptr_ + i) = other.c_str()[i];
+                    }
                 }
             }
-        }
 
         /// Конструктор перемещения
         basic_string(basic_string<T> &&dying) noexcept {
@@ -104,7 +106,7 @@ class basic_string {
         }
 
         /// Оператор перемещающего присваивания
-        basic_string& operator=(basic_string<T> &&other) noexcept {
+        basic_string &operator=(basic_string<T> &&other) noexcept {
             if (this != &other) {
                 clean_();  // Освобождаем текущие ресурсы
                 size_ = other.size_;
@@ -115,7 +117,7 @@ class basic_string {
         }
 
         /// Оператор присваивания си строки
-        basic_string &operator=(const char *c_str) {
+        basic_string &operator=(const T *c_str) {
             if (c_str != nullptr) {
                 clean_();
                 size_ = strlen_(c_str);
@@ -226,6 +228,5 @@ class basic_string {
 
         T *ptr_ = nullptr;
         size_t size_;
-
     };
 }
