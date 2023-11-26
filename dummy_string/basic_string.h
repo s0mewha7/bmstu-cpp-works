@@ -5,22 +5,22 @@
 #include <sstream>
 #include <fstream>
 namespace bmstu {
-    // Forward declaration of basic_string
-    template <class T>
-    class basic_string;
+// Forward declaration of basic_string
+template <class T>
+class basic_string;
 
-    // Typedefs for specific instantiations
-    typedef basic_string<char> string;
-    typedef basic_string<wchar_t> wstring;
-    typedef basic_string<char8_t> u8string;
-    typedef basic_string<char16_t> u16string;
-    typedef basic_string<char32_t> u32string;
+// Typedefs for specific instantiations
+typedef basic_string<char> string;
+typedef basic_string<wchar_t> wstring;
+typedef basic_string<char8_t> u8string;
+typedef basic_string<char16_t> u16string;
+typedef basic_string<char32_t> u32string;
 
-    // Definition of the basic_string template
-    template <class T>
-    class basic_string {
-    public:
-        /// Конструктор по умолчанию
+// Definition of the basic_string template
+template <class T>
+class basic_string {
+public:
+    /// Конструктор по умолчанию
         basic_string() : size_(0), ptr_(new T[1]) {
             ptr_[0] = static_cast<T>('\0');
         }
@@ -30,7 +30,7 @@ namespace bmstu {
             copy_(ptr_, list.begin(), size_);
         }
 
-        basic_string(size_t size) {
+        explicit basic_string(size_t size) {
             ptr_ = new T[size + 1];
             for(size_t i = 0; i < size; i++) {
                 ptr_[i] = static_cast<T>(' ');
@@ -40,7 +40,7 @@ namespace bmstu {
         }
 
         /// Конструктор с параметром "cи строкой"
-        basic_string(const T *c_str) {
+        explicit basic_string(const T *c_str) {
             size_ = strlen_(c_str);
             if (size_ != 0) {
                 ptr_ = new T[size_ + 1];
