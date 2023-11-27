@@ -153,7 +153,7 @@ namespace bmstu {
         }
 
         const_iterator end() const noexcept {
-            return data_.Get() + size_;
+             return data_.Get() + size_;
         }
 
         const_iterator cbegin() const noexcept {
@@ -188,11 +188,11 @@ namespace bmstu {
             }
         }
 
-        size_t size() const noexcept {
+        [[nodiscard]] size_t size() const noexcept {
             return size_;
         }
 
-        size_t capacity() const noexcept {
+        [[nodiscard]] size_t capacity() const noexcept {
             return capacity_;
         }
 
