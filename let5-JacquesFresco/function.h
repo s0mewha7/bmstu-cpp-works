@@ -1,5 +1,5 @@
-#ifndef PASSWORD_GENERATOR_H
-#define PASSWORD_GENERATOR_H
+#ifndef LET5_JACQUESFRESCO_FUNCTION_H_
+#define LET5_JACQUESFRESCO_FUNCTION_H_
 
 #include <iostream>
 #include <fstream>
@@ -9,5 +9,4 @@ std::string charset = "1234567890AaBbCcDdEeFfHhGgXxYyZz";
 const size_t passwordLength = 5;
 
 void generated_password();
-
-#endif // PASSWORD_GENERATOR_H
+#endif  // LET5_JACQUESFRESCO_FUNCTION_H_

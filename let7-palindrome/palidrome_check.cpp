@@ -59,7 +59,7 @@ void finding_palindromes(std::string file, size_t size_of_palindromes = 0) {
 
     std::cout  << "\"count_palindromes\": "<< size_of_palindromes << ',' << std::endl << "palindromes\": [";
     for (size_t s = 0; s != size_of_palindromes; ++s) {
-        if (s == size_of_palindromes - 1){
+        if (s == size_of_palindromes - 1) {
             std::cout << '\"' << palindromes[s] << '\"';
         } else {
             std::cout << '\"' << palindromes[s] << '\"' << ',' << " ";
