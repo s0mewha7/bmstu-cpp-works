@@ -10,7 +10,7 @@ void printMobilePhone(std::istream &is, std::ostream &os)
     return;
   }
 
-  MobilePhone *array = new MobilePhone[length];
+  auto *array = new MobilePhone[length];
 
   for (size_t i = 0; i < length; ++i)
   {
