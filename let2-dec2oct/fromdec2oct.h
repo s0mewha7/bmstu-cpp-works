@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-char *convertToOctalString(int param_number)
-{
+char *convertToOctalString(int param_number) {
     char *octalcstring = new char[12];
 
     if (octalcstring == nullptr) {
@@ -39,4 +38,5 @@ char *convertToOctalString(int param_number)
     delete[] octalDigits;
     return octalcstring;
 }
+
 #endif  // LET2_DEC2OCT_FROMDEC2OCT_H_
