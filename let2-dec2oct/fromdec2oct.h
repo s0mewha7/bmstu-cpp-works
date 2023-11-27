@@ -9,7 +9,7 @@ char *convertToOctalString(int param_number) {
     if (octalcstring == nullptr) {
         return nullptr;
     }
-    size_t index = 0;
+    int index = 0;
 
     if (param_number < 0) {
         octalcstring[index++] = '-';
@@ -31,7 +31,7 @@ char *convertToOctalString(int param_number) {
         }
     }
 
-    for (size_t i = octalIndex - 1; i >= 0; i--) {
+    for (int i = octalIndex - 1; i >= 0; i--) {
         octalcstring[index++] = '0' + octalDigits[i];
     }
     octalcstring[index] = '\0';
