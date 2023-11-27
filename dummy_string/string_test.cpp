@@ -1,4 +1,7 @@
-#include "string_test.h"
+#include "basic_string.h"
+#include <gtest/gtest.h>
+#include <cstddef>
+#include <iostream>
 
 
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION
