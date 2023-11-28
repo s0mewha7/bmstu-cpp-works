@@ -19,7 +19,7 @@ void printMobilePhone(std::istream &is, std::ostream &os) {
 
     if (!(is >> weight >> is_broken >> price)) {
       os << "Invalid input format for mobile phone " << i << "." << std::endl;
-      delete[] array; // Clean up allocated memory
+      delete[] array;  //  Delete the allocated array
       return;
     }
 
@@ -35,6 +35,6 @@ void printMobilePhone(std::istream &is, std::ostream &os) {
   }
   os << "</MobilePhones>" << std::endl;
 
-  delete[] array; // Clean up allocated memory
+  delete[] array; //  Clean up allocated memory
 }
 #endif  // LET4_STRUCT_STRUCT_TO_XML_H_
