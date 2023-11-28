@@ -2,9 +2,7 @@
 #include <gtest/gtest.h>
 #include <sstream>
 
-// Helper function to compare strings ignoring leading/trailing white spaces
 bool compareIgnoringWhitespace(const std::string &expected, const std::string &actual) {
-    // Remove leading/trailing white spaces
     std::string expectedNoWhitespace = expected;
     expectedNoWhitespace.erase(0, expectedNoWhitespace.find_first_not_of(" \t\n"));
     expectedNoWhitespace.erase(expectedNoWhitespace.find_last_not_of(" \t\n") + 1);
@@ -32,11 +30,10 @@ TEST(MobilePhoneTest, PrintMobilePhoneValidInput) {
 }
 
 TEST(MobilePhoneTest, PrintMobilePhoneInvalidInput) {
-    std::istringstream input("2\n1.3 1 1000.23\n2.2 0\n"); //  Invalid input (missing price for the second phone)
+    std::istringstream input("2\n1.3 1 1000.23\n2.2 0\n");
     std::ostringstream output;
 
     printMobilePhone(input, output);
-
-    // Check if the error message for invalid input is present in the output
     ASSERT_NE(output.str().find("Invalid input format"), std::string::npos);
-} //  all_tests
+
+}
