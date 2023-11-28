@@ -35,6 +35,6 @@ void printMobilePhone(std::istream &is, std::ostream &os) {
   }
   os << "</MobilePhones>" << std::endl;
 
-  delete[] array; //  Clean up allocated memory
+  delete[] array;
 }
 #endif  // LET4_STRUCT_STRUCT_TO_XML_H_
