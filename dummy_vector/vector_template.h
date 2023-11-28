@@ -1,6 +1,7 @@
 #pragma once
-
 #include <iostream>
+#include <utility>
+#include <algorithm>
 #include "array_bundle.h"
 
 namespace bmstu {
@@ -14,7 +15,9 @@ class dummy_vector {
         using pointer = Type *;
         using reference = Type &;
 
-        explicit iterator(pointer ptr) : m_ptr(ptr) {}
+        iterator(pointer ptr) : m_ptr(ptr) {
+
+        }
 
         reference operator*() const {
             return *m_ptr;
@@ -54,9 +57,9 @@ class dummy_vector {
         friend bool operator==(const iterator &a, const iterator &b) {
             return a.m_ptr == b.m_ptr;
         }
-        
+
         friend bool operator!=(const iterator &a, const iterator &b) {
-            return a != b;
+            return !(a == b);
         }
 
         friend difference_type operator-(const iterator &a, const iterator &b) {
@@ -64,12 +67,12 @@ class dummy_vector {
         }
 
         iterator &operator+(size_t n) noexcept {
-            m_ptr += n;
+            m_ptr = m_ptr + n;
             return *this;
         }
 
         iterator &operator-(size_t n) noexcept {
-            m_ptr -= n;
+            m_ptr = m_ptr - n;
             return *this;
         }
 
@@ -139,27 +142,27 @@ class dummy_vector {
 
     /// Итераторы
     iterator begin() noexcept {
-        return iterator(data_.Get());
+        return data_.Get();
     }
 
     iterator end() noexcept {
-        return iterator(data_.Get() + size_);
+        return data_.Get() + size_;
     }
 
     const_iterator begin() const noexcept {
-        return const_iterator(data_.Get());
+        return data_.Get();
     }
 
     const_iterator end() const noexcept {
-         return const_iterator(data_.Get() + size_);
+        return data_.Get() + size_;
     }
 
     const_iterator cbegin() const noexcept {
-        return const_iterator(data_.Get());
+        return data_.Get();
     }
 
     const_iterator cend() const noexcept {
-        return const_iterator(data_.Get() + size_);
+        return data_.Get() + size_;
     }
 
     typename iterator::reference operator[](size_t index) noexcept {
@@ -186,11 +189,11 @@ class dummy_vector {
         }
     }
 
-    [[nodiscard]] size_t size() const noexcept {
+    size_t size() const noexcept {
         return size_;
     }
 
-    [[nodiscard]] size_t capacity() const noexcept {
+    size_t capacity() const noexcept {
         return capacity_;
     }
 
@@ -351,7 +354,6 @@ class dummy_vector {
         }
         return ((fr != right.end()) && (fl == left.end()));
     }
-
     size_t size_ = 0;
     size_t capacity_ = 0;
     array_bundle<Type> data_;

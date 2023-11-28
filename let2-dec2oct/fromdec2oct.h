@@ -5,21 +5,17 @@
 
 char *convertToOctalString(int param_number) {
     char *octalcstring = new char[12];
-
     if (octalcstring == nullptr) {
         return nullptr;
     }
     int index = 0;
-
     if (param_number < 0) {
         octalcstring[index++] = '-';
         param_number = -param_number;
     }
-
     octalcstring[index++] = '0';
     octalcstring[index++] = 'o';
-
-    size_t octalIndex = 0;
+    int octalIndex = 0;
     auto *octalDigits = new int[11];
 
     if (param_number == 0) {

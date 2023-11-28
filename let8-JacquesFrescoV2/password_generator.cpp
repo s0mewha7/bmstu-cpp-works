@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-void generatePasswords(size_t length, const std::string& charset, const std::string &currentPassword) {
+void generatePasswords(size_t length, const std::string &charset, const std::string &currentPassword) {
     if (length == 0) {
         std::cout << currentPassword << std::endl;
         return;
@@ -23,7 +23,9 @@ int main(int argc, char* argv[]) {
         std::cerr << "Password length should be a positive integer." << std::endl;
         return 1;
     }
+
     std::string charset = "1234567890AaBbCcDdEeFfGgHhXxYyZz";
     generatePasswords(passwordLength, charset, "");
+
     return 0;
 }
