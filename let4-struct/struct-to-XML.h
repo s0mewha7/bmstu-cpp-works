@@ -1,3 +1,5 @@
+#ifndef LET4_STRUCT_STRUCT_TO_XML_H_
+#define LET4_STRUCT_STRUCT_TO_XML_H_
 #include "struct.h"
 
 void printMobilePhone(std::istream &is, std::ostream &os) {
@@ -35,3 +37,4 @@ void printMobilePhone(std::istream &is, std::ostream &os) {
 
   delete[] array; // Clean up allocated memory
 }
+#endif  // LET4_STRUCT_STRUCT_TO_XML_H_
