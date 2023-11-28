@@ -64,8 +64,8 @@ class dummy_vector {
             return copy;
         }
 
-    private:
-         pointer m_ptr;
+        private:
+            pointer m_ptr;
     };
     using const_iterator = const iterator;
     dummy_vector() noexcept = default;
