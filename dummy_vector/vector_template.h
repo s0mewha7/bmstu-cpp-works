@@ -14,9 +14,7 @@ class dummy_vector {
         using pointer = Type *;
         using reference = Type &;
 
-        iterator(pointer ptr) : m_ptr(ptr) {
-
-        }
+        explicit iterator(pointer ptr) : m_ptr(ptr) {}
 
         reference operator*() const {
             return *m_ptr;
@@ -56,9 +54,9 @@ class dummy_vector {
         friend bool operator==(const iterator &a, const iterator &b) {
             return a.m_ptr == b.m_ptr;
         }
-
+        
         friend bool operator!=(const iterator &a, const iterator &b) {
-            return !(a == b);
+            return a != b;
         }
 
         friend difference_type operator-(const iterator &a, const iterator &b) {
@@ -66,12 +64,12 @@ class dummy_vector {
         }
 
         iterator &operator+(size_t n) noexcept {
-            m_ptr = m_ptr + n;
+            m_ptr += n;
             return *this;
         }
 
         iterator &operator-(size_t n) noexcept {
-            m_ptr = m_ptr - n;
+            m_ptr -= n;
             return *this;
         }
 
@@ -141,27 +139,27 @@ class dummy_vector {
 
     /// Итераторы
     iterator begin() noexcept {
-        return data_.Get();
+        return iterator(data_.Get());
     }
 
     iterator end() noexcept {
-        return data_.Get() + size_;
+        return iterator(data_.Get() + size_);
     }
 
     const_iterator begin() const noexcept {
-        return data_.Get();
+        return const_iterator(data_.Get());
     }
 
     const_iterator end() const noexcept {
-         return data_.Get() + size_;
+         return const_iterator(data_.Get() + size_);
     }
 
     const_iterator cbegin() const noexcept {
-        return data_.Get();
+        return const_iterator(data_.Get());
     }
 
     const_iterator cend() const noexcept {
-        return data_.Get() + size_;
+        return const_iterator(data_.Get() + size_);
     }
 
     typename iterator::reference operator[](size_t index) noexcept {

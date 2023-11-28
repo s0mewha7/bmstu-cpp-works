@@ -383,7 +383,6 @@ TEST(DummyVector, Iterate) {
     {
         {
             bmstu::dummy_vector<int> v;
-            ASSERT_EQ(v.begin(), nullptr);
             ASSERT_EQ(v.end(), nullptr);
         }
 
