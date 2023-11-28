@@ -13,7 +13,7 @@ void generatePasswords(size_t length, const std::string &charset, const std::str
     }
 }
 
-int main(int argc, char* argv[]) {
+int main8(int argc, char* argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: " << argv[0] << " <password_length>" << std::endl;
         return 1;
