@@ -1,3 +1,5 @@
+//  let4-struct test
+
 #include "struct-to-XML.h"
 #include <gtest/gtest.h>
 #include <sstream>
@@ -36,4 +38,4 @@ TEST(MobilePhoneTest, PrintMobilePhoneInvalidInput) {
     printMobilePhone(input, output);
     ASSERT_NE(output.str().find("Invalid input format"), std::string::npos);
 }
-// Новая строка здесь
+//  let4-struct test
