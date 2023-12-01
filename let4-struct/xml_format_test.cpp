@@ -35,5 +35,4 @@ TEST(MobilePhoneTest, PrintMobilePhoneInvalidInput) {
 
     printMobilePhone(input, output);
     ASSERT_NE(output.str().find("Invalid input format"), std::string::npos);
-
 }
