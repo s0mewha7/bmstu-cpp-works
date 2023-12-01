@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 
-std::string charset = "1234567890AaBbCcDdEeFfHhGgXxYyZz";
 const size_t passwordLength = 5;
 
 void generated_password();

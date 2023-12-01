@@ -1,5 +1,7 @@
 #include "function.h"
 
+const std::string charset = "1234567890AaBbCcDdEeFfHhGgXxYyZz";
+
 void generatePasswords(const std::string &charset, int length, std::string currentPassword) {
     if (length == 0) {
         std::cout << currentPassword << std::endl;
