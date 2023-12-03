@@ -36,8 +36,6 @@ std::string selection_string(std::string from, std::string to) {
     return to;
 }
 
-
-
 void finding_palindromes(std::string file, size_t size_of_palindromes = 0) {
     size_t quantity = std::count(file.begin(), file.end(), '\n');
     auto *arr = new std::string[quantity];
@@ -70,7 +68,6 @@ void finding_palindromes(std::string file, size_t size_of_palindromes = 0) {
     delete[] arr;
     delete[] palindromes;
 }
-
 
 int mainFunc7(int argc, char **argv) {
     std::string file = read_file_from_path(argv[1]);
