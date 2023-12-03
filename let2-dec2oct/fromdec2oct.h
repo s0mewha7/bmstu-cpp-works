@@ -1,5 +1,4 @@
-#ifndef LET2_DEC2OCT_FROMDEC2OCT_H_
-#define LET2_DEC2OCT_FROMDEC2OCT_H_
+#pragma once
 
 #include <iostream>
 
@@ -35,4 +34,3 @@ char *convertToOctalString(int param_number) {
     return octalcstring;
 }
 
-#endif  // LET2_DEC2OCT_FROMDEC2OCT_H_
