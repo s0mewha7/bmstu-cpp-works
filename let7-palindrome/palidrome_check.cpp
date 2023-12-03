@@ -26,15 +26,16 @@ bool is_palindrome(const std::string &basicString) {
     return true;
 }
 
-std::string selection_string(std::string &fr, std::string &t) {
+std::string selection_string(std::string from, std::string to) {
     size_t i = 0;
-    while (fr[i] != '\n') {
-        t.push_back(fr[i]);
+    while (from[i] != '\n') {
+        to.push_back(from[i]);
         i++;
     }
-    fr.erase(0, i + 1);
-    return t;
+    from.erase(0, i + 1);
+    return to;
 }
+
 
 
 void finding_palindromes(std::string file, size_t size_of_palindromes = 0) {
