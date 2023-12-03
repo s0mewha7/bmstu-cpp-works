@@ -26,14 +26,14 @@ bool is_palindrome(const std::string &basicString) {
     return true;
 }
 
-std::string selection_string(std::string &from, std::string &to) {
+std::string selection_string(std::string &fr, std::string &t) {
     size_t i = 0;
-    while (from[i] != '\n') {
-        to.push_back(from[i]);
+    while (fr[i] != '\n') {
+        t.push_back(fr[i]);
         i++;
     }
-    from.erase(0, i + 1);
-    return to;
+    fr.erase(0, i + 1);
+    return t;
 }
 
 
