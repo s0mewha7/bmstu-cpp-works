@@ -76,7 +76,8 @@ int main6(int argc, char* argv[]) {
         case 'o':
             std::cout << "TOP 15 students with highest ratings in alphabetical order:" << std::endl;
             std::sort(students.begin(), students.end(), compareByName);
-            std::sort(students.begin(), students.begin() + std::min(15, static_cast<int>(students.size())), compareByRating);
+            std::sort(students.begin(), students.begin() + std::min(15, static_cast<int>(students.size())),
+                      compareByRating);
             break;
         case 'g':
             std::cout << "TOP 15 students with highest ratings on the department:" << std::endl;
@@ -85,14 +86,16 @@ int main6(int argc, char* argv[]) {
         case 'r':
             std::cout << "TOP 15 students with highest ratings on the department in alphabetical order:" << std::endl;
             std::sort(students.begin(), students.end(), compareByName);
-            std::sort(students.begin(), students.begin() + std::min(15, static_cast<int>(students.size())), compareByRatingAndName);
+            std::sort(students.begin(), students.begin() + std::min(15, static_cast<int>(students.size())),
+                      compareByRatingAndName);
             break;
         default:
             std::cerr << "Invalid option: " << option << std::endl;
             return 1;
     }
     for (int i = 0; i < std::min(15, static_cast<int>(students.size())); ++i) {
-        std::cout << students[i].name << " - Age: " << students[i].age << ", Rating: " << students[i].rating << std::endl;
+        std::cout << students[i].name << " - Age: " << students[i].age << ", Rating: "
+            << students[i].rating << std::endl;
     }
     return 0;
 }
