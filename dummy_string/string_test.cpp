@@ -1,10 +1,11 @@
-#include "basic_string.h"
-#include <gtest/gtest.h>
-#include <cstddef>
-#include <iostream>
-
-
 // ALL TEST FOR TEMPLATE STRING IMPLEMENTATION
+
+#include <gtest/gtest.h>
+#include <iostream>
+#include <utility>
+
+#include "basic_string.h"
+
 TEST(StringTest, DefaultConstructor) {
     bmstu::string str;
     ASSERT_STREQ(str.c_str(), "");
