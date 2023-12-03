@@ -95,8 +95,7 @@ TEST(DummyVectorTest, DummyVectorTestWithSizeAndValue) {
     bmstu::dummy_vector<int> vec_with_size(5, 42);
     EXPECT_EQ(vec_with_size.size(), 5);
     EXPECT_EQ(vec_with_size.capacity(), 5);
-
-    for (const auto &value: vec_with_size) {
+    for (const auto &value : vec_with_size) {
         EXPECT_EQ(value, 42);
     }
 }
@@ -316,8 +315,8 @@ TEST(DummyVectorTest, SwapV1) {
     for (const auto &i : my_vec1) {
         ASSERT_EQ(i, 3);
     }
-    for (size_t i = 0; i < my_vec2.size(); ++i) {
-        ASSERT_EQ(my_vec2[i], 20);
+    for (const auto &i : my_vec2) {
+        ASSERT_EQ(i, 20);
     }
 }
 
@@ -992,7 +991,7 @@ class X {
             : X(5) {
     }
 
-    X(size_t num)
+    explicit X(size_t num)
             : x_(num) {
     }
 
@@ -1000,7 +999,7 @@ class X {
 
     X& operator=(const X&other) = delete;
 
-    X(X&&other) {
+    X(X&&other)  noexcept {
         x_ = std::exchange(other.x_, 0);
     }
 
@@ -1009,7 +1008,7 @@ class X {
         return *this;
     }
 
-    size_t GetX() const {
+    [[nodiscard]] size_t GetX() const {
         return x_;
     }
 
@@ -1124,11 +1123,10 @@ TEST(DummyVector, test_new_push) {
 }
 
 class WithoutDefaultConstructor {
-public:
+ public:
     WithoutDefaultConstructor() = delete;
 
-    WithoutDefaultConstructor(int other) : number(other) {
-    }
+    explicit WithoutDefaultConstructor(int other) : number(other) {}
 
     int number;
 };
