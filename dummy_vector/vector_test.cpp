@@ -95,7 +95,8 @@ TEST(DummyVectorTest, DummyVectorTestWithSizeAndValue) {
     bmstu::dummy_vector<int> vec_with_size(5, 42);
     EXPECT_EQ(vec_with_size.size(), 5);
     EXPECT_EQ(vec_with_size.capacity(), 5);
-    for (int value: vec_with_size) {
+
+    for (const auto &value: vec_with_size) {
         EXPECT_EQ(value, 42);
     }
 }
@@ -814,9 +815,7 @@ TEST(DummyVector, Push) {
     ASSERT_EQ(v[1], 42);
 }
 
-TEST(DummyVector, CopyConstruct)
-// Конструктор копирования
-{
+TEST(DummyVector, CopyConstruct) {
     bmstu::dummy_vector<int> numbers{1, 2};
     auto numbers_copy(numbers);
     ASSERT_TRUE(&numbers_copy[0] != &numbers[0]);
@@ -826,6 +825,7 @@ TEST(DummyVector, CopyConstruct)
         ASSERT_TRUE(&numbers_copy[i] != &numbers[i]);
     }
 }
+
 
 TEST(DummyVector, PopBack) {
     // PopBack
@@ -987,7 +987,7 @@ TEST(DummyVector, Reserve) { {
 }
 
 class X {
-public:
+ public:
     X()
             : X(5) {
     }
@@ -1013,7 +1013,7 @@ public:
         return x_;
     }
 
-private:
+ private:
     size_t x_;
 };
 
