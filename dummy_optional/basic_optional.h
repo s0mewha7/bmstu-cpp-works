@@ -165,4 +165,4 @@ class optional {
     alignas(T) uint8_t data_[sizeof(T)]{};
     bool is_initialized_ = false;
 };
-} //  namespace bmstu
+}  // namespace bmstu
