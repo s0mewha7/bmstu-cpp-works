@@ -94,19 +94,19 @@ class optional {
     }
 
     T &operator*() & {
-        return *(static_cast<T *>((void *) &data_[0]));
+        return *(reinterpret_cast<T *>((void *) &data_[0]));
     }
 
     const T &operator*() const & {
-        return *(static_cast<const T *>((void *) &data_[0]));
+        return *(reinterpret_cast<const T *>((void *) &data_[0]));
     }
 
     T *operator->() {
-        return static_cast<T *>((void *) &data_[0]);
+        return reinterpret_cast<T *>((void *) &data_[0]);
     }
 
     const T *operator->() const {
-        return static_cast<const T *>((void *) &data_[0]);
+        return reinterpret_cast<const T *>((void *) &data_[0]);
     }
 
     T &&operator*() && {
@@ -165,4 +165,4 @@ class optional {
     alignas(T) uint8_t data_[sizeof(T)]{};
     bool is_initialized_ = false;
 };
-} // namespace bmstu
+} //  namespace bmstu
