@@ -159,10 +159,10 @@ class optional {
 
     [[nodiscard]] bool has_value() const {
         return is_initialized_;
-    };
+    }
 
  private:
     alignas(T) uint8_t data_[sizeof(T)]{};
     bool is_initialized_ = false;
 };
-}
+} // namespace bmstu
