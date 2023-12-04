@@ -94,44 +94,44 @@ class optional {
     }
 
     T &operator*() & {
-        return *(reinterpret_cast<T *>((void *) &data_[0]));
+        return *(reinterpret_cast<T *>(&data_[0]));
     }
 
     const T &operator*() const & {
-        return *(reinterpret_cast<const T *>((void *) &data_[0]));
+        return *(reinterpret_cast<const T *>(&data_[0]));
     }
 
     T *operator->() {
-        return reinterpret_cast<T *>((void *) &data_[0]);
+        return reinterpret_cast<T *>(&data_[0]);
     }
 
     const T *operator->() const {
-        return reinterpret_cast<const T *>((void *) &data_[0]);
+        return reinterpret_cast<const T *>(&data_[0]);
     }
 
     T &&operator*() && {
-        return std::move(reinterpret_cast<T &>(*(T *) &data_[0]));
+        return std::move(reinterpret_cast<T &>(&data_[0]));
     }
 
     T &value() & {
         if (!is_initialized_) {
             throw bad_optional_access();
         }
-        return reinterpret_cast<T &>(*(T *) &data_[0]);
+        return reinterpret_cast<T &>(&data_[0]);
     }
 
     const T &value() const & {
         if (!is_initialized_) {
             throw bad_optional_access();
         }
-        return reinterpret_cast<const T &>(*(T *) &data_[0]);
+        return reinterpret_cast<const T &>(&data_[0]);
     }
 
     T &&value() && {
         if (!is_initialized_) {
             throw bad_optional_access();
         }
-        return reinterpret_cast<T &&>(*(T *) &data_[0]);
+        return reinterpret_cast<T &&>(&data_[0]);
     }
 
     template<typename ...Args>
