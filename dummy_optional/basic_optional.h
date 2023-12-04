@@ -144,7 +144,7 @@ class optional {
 
     void reset() {
         if (is_initialized_) {
-            static_cast<T *>((void *) &data_[0])->~T();
+            reinterpret_cast<T *>(&data_[0])->~T();
             is_initialized_ = false;
         }
     }
@@ -152,7 +152,7 @@ class optional {
     //  Destructor
     ~optional() {
         if (is_initialized_) {
-            T *pointer = static_cast<T *> ((void *) &data_[0]);
+            T *pointer = reinterpret_cast<T *>(&data_[0]);
             pointer->~T();
         }
     }
