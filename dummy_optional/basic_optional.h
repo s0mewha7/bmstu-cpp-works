@@ -1,14 +1,14 @@
 #pragma once
 
-#include <cstdint>
 #include <exception>
+#include <cstdint>
 #include <type_traits>
 
 namespace bmstu {
 class bad_optional_access : public std::exception {
- public:
     using exception::exception;
-    [[nodiscard]] const char *what() const noexcept override {
+
+    virtual const char *what() const noexcept {
         return "Bad optional access";
     }
 };
@@ -19,7 +19,7 @@ class optional {
 
     explicit optional(const T &value) {
         is_initialized_ = true;
-        T *val = new(&data_[0]) T{value};
+        T *val = new(&data_[0])T{value};
         (void) (&val);
     }
 
@@ -29,16 +29,53 @@ class optional {
         (void) (&val);
     }
 
-    //  Operators and etc
-
     optional(const optional &other) {
-        if (other.is_initialized_) {
+        if (is_initialized_ && other.is_initialized_) {
+            this->value() = other.value();
+        } else if (!is_initialized_ && other.is_initialized_) {
+            T *val = new(&data_[0])T{other.value()};
             is_initialized_ = true;
-            T *val = new(&data_[0]) T(other.value());
-            (void) &val;
-        } else {
-            (void) (&data_[0]);
+            (void) (&val);
+        } else if (is_initialized_ && !other.is_initialized_) {
+            this->reset();
+        } else if (!is_initialized_ && !other.is_initialized_) {
+            (void) (&data_);
         }
+    }
+
+    optional(const optional &&other)  noexcept {
+        if (is_initialized_ && other.is_initialized_) {
+            this->value() = std::move(other.value());
+        } else if (!is_initialized_ && other.is_initialized_) {
+            T *val = new(&data_[0])T{std::move(other.value())};
+            is_initialized_ = true;
+            (void) (&val);
+        } else if (is_initialized_ && !other.is_initialized_) {
+            this->reset();
+        } else if (!is_initialized_ && !other.is_initialized_) {
+            (void) (&data_);
+        }
+    }
+
+    T &value() & {
+        if (!is_initialized_) {
+            throw bad_optional_access();
+        }
+        return reinterpret_cast<T &>(*(T *) (&data_[0]));
+    }
+
+    T &value() const & {
+        if (!is_initialized_) {
+            throw bad_optional_access();
+        }
+        return reinterpret_cast<T &>(*(T *) (&data_[0]));
+    }
+
+    T &&value() && {
+        if (!is_initialized_) {
+            throw bad_optional_access();
+        }
+        return std::move(*static_cast<T *>(static_cast<void *>(&data_[0])));
     }
 
     optional &operator=(const T &value) {
@@ -46,114 +83,91 @@ class optional {
             this->value() = value;
         } else {
             is_initialized_ = true;
-            T *val = new(&data_[0]) T(value);
+            T *val = new(&data_[0])T{value};
             (void) (&val);
         }
         return *this;
     }
 
-    optional &operator=(const T &&value) {
+    optional &operator=(T &&rhs) {
         if (is_initialized_) {
-            this->value() = std::move(value);
+            this->value() = std::move(rhs);
         } else {
             is_initialized_ = true;
-            T *val = new(&data_[0]) T(std::move(value));
+            T *val = new(&data_[0])T{std::move(rhs)};
             (void) (&val);
         }
         return *this;
     }
 
     optional &operator=(const optional &other) {
-        if (this != &other) {
-            if (is_initialized_ && other.is_initialized_) {
-                this->value() = other.value();
-            } else if (!is_initialized_ && other.is_initialized_) {
-                is_initialized_ = true;
-                T *val = new(&data_[0]) T(other.value());
-                (void) (&val);
-            } else if (is_initialized_ && !other.is_initialized_) {
-                this->reset();
-            }
+        if (&other == this) {
+            return *this;
         }
+
+        if (is_initialized_ && other.is_initialized_) {
+            this->value() = other.value();
+        } else if (!is_initialized_ && other.is_initialized_) {
+            T *val = new(&data_[0])T{other.value()};
+            is_initialized_ = true;
+            (void) (&val);
+        } else if (is_initialized_ && !other.is_initialized_) {
+            this->reset();
+        } else if (!is_initialized_ && !other.is_initialized_) {
+            (void) (&data_);
+        }
+
         return *this;
     }
 
-    optional &operator=(const optional &&other) {
-        if (this != &other) {
-            if (is_initialized_ && other.is_initialized_) {
-                this->value() = std::move(other.value());
-            } else if (!is_initialized_ && other.is_initialized_) {
-                is_initialized_ = true;
-                T *val = new(&data_[0]) T(std::move(other.value()));
-                (void) (&val);
-            } else if (is_initialized_ && !other.is_initialized_) {
-                this->reset();
-            }
+    optional &operator=(optional &&rhs) noexcept {
+        if (&rhs == this) {
+            return *this;
         }
+        if (is_initialized_ && rhs.is_initialized_) {
+            this->value() = std::move(rhs.value());
+        } else if (!is_initialized_ && rhs.is_initialized_) {
+            T *val = new(&data_[0])T(std::move(rhs.value()));
+            is_initialized_ = true;
+            (void) (&val);
+        } else if (is_initialized_ && !rhs.is_initialized_) {
+            this->reset();
+        } else if (!is_initialized_ && !rhs.is_initialized_) {
+            (void) (&data_);
+        }
+
         return *this;
     }
 
     T &operator*() & {
-        return *(reinterpret_cast<T *>(&data_[0]));
+        return *static_cast<T *>(static_cast<void *>(&data_[0]));
     }
 
     const T &operator*() const & {
-        return *(reinterpret_cast<const T *>(&data_[0]));
-    }
-
-    T *operator->() {
-        return reinterpret_cast<T *>(&data_[0]);
+        return *static_cast<const T *>(static_cast<void *>(&data_[0]));
     }
 
     const T *operator->() const {
         return reinterpret_cast<const T *>(&data_[0]);
     }
 
-    T &&operator*() && {
-        return std::move(reinterpret_cast<T &>(&data_[0]));
-    }
-
-    T &value() & {
-        if (!is_initialized_) {
-            throw bad_optional_access();
-        }
-        return reinterpret_cast<T &>(&data_[0]);
-    }
-
-    const T &value() const & {
-        if (!is_initialized_) {
-            throw bad_optional_access();
-        }
-        return reinterpret_cast<const T &>(&data_[0]);
-    }
-
-    T &&value() && {
-        if (!is_initialized_) {
-            throw bad_optional_access();
-        }
-        return reinterpret_cast<T &&>(&data_[0]);
-    }
-
-    template<typename ...Args>
-    void emplace(Args &&... args) {
-        if (is_initialized_) reset();
-        is_initialized_ = true;
-        T *val = new(&data_[0])T(std::forward<Args>(args)...);
-        (void) (&val);
+    T *operator->() {
+        return static_cast<T *>(static_cast<void *>(&data_[0]));
     }
 
     void reset() {
         if (is_initialized_) {
-            reinterpret_cast<T *>(&data_[0])->~T();
+            T *ptr = static_cast<T *>(static_cast<void *>(&data_[0]));;
+            ptr->~T();
             is_initialized_ = false;
         }
     }
 
-    //  Destructor
     ~optional() {
         if (is_initialized_) {
-            T *pointer = reinterpret_cast<T *>(&data_[0]);
-            pointer->~T();
+            T *ptr = static_cast<T *>(static_cast<void *>(&data_[0]));
+            ptr->~T();
+            is_initialized_ = false;
         }
     }
 
@@ -161,8 +175,23 @@ class optional {
         return is_initialized_;
     }
 
+    template<typename... Args>
+    void emplace(Args &&... args) {
+        if (is_initialized_) {
+            this->reset();
+        }
+        is_initialized_ = true;
+        T *val = new(&data_[0])T(std::forward<Args>(args)...);
+        (void) (&val);
+    }
+
+    friend void swap(optional<T> &first, optional<T> &second) {
+        std::swap(first.data_, second.data_);
+        std::swap(first.is_initialized_, second.is_initialized_);
+    }
+
  private:
-    alignas(T) uint8_t data_[sizeof(T)]{};
+    alignas(T) char data_[sizeof(T)]{};
     bool is_initialized_ = false;
 };
 }  // namespace bmstu
