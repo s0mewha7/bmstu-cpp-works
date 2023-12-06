@@ -2,7 +2,7 @@
 #include "basic_optional.h"
 
 class TS {
-public:
+ public:
     TS() noexcept {
         ++default_constr;
     }
@@ -76,7 +76,7 @@ public:
     inline static size_t rvalue_call_count = 0;
 };
 
-TEST(OptionalTest, HasValueTest) {
+TEST(OptionalTest, HasValue) {
     bmstu::optional<int> opt;
     ASSERT_FALSE(opt.has_value());
     bmstu::optional<int> opt2(3);
@@ -152,7 +152,7 @@ TEST(OptionalTest, MoveOptionalValue) {
     ASSERT_EQ(opt.value(), 321);
 }
 
-TEST(OptionalTest, DefaultM) {
+TEST(OptionalTest, DefaultTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -171,7 +171,7 @@ TEST(OptionalTest, DefaultM) {
     }
 }
 
-TEST(OptionalTest, CopyValueM) {
+TEST(OptionalTest, CopyValueTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -195,7 +195,7 @@ TEST(OptionalTest, CopyValueM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, CopyOperatorValueM) {
+TEST(OptionalTest, CopyOperatorValueTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -220,7 +220,7 @@ TEST(OptionalTest, CopyOperatorValueM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, CopyOperatorFromOneToAnotherM) {
+TEST(OptionalTest, CopyOperatorFromOneToAnotherTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -247,7 +247,7 @@ TEST(OptionalTest, CopyOperatorFromOneToAnotherM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveValueM) {
+TEST(OptionalTest, MoveValueTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -271,7 +271,7 @@ TEST(OptionalTest, MoveValueM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveOperatorValueM) {
+TEST(OptionalTest, MoveOperatorValueTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -296,7 +296,7 @@ TEST(OptionalTest, MoveOperatorValueM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveOperatorFromOneToAnotherM) {
+TEST(OptionalTest, MoveOperatorFromOneToAnotherTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -323,7 +323,7 @@ TEST(OptionalTest, MoveOperatorFromOneToAnotherM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, CopyEmptyOptionalM) {
+TEST(OptionalTest, CopyEmptyOptionalTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -344,7 +344,7 @@ TEST(OptionalTest, CopyEmptyOptionalM) {
     }
 }
 
-TEST(OptionalTest, CopyOptionalWithValueM) {
+TEST(OptionalTest, CopyOptionalWithValueTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -370,7 +370,7 @@ TEST(OptionalTest, CopyOptionalWithValueM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveEmptyOptionalM) {
+TEST(OptionalTest, MoveEmptyOptionalTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -391,7 +391,7 @@ TEST(OptionalTest, MoveEmptyOptionalM) {
     }
 }
 
-TEST(OptionalTest, MoveOptionalWithValueM) {
+TEST(OptionalTest, MoveOptionalWithValueTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -401,23 +401,23 @@ TEST(OptionalTest, MoveOptionalWithValueM) {
         ASSERT_TRUE(opt_2.has_value());
         ASSERT_EQ(TS::instance_count(), 3);
         ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 1);
+        ASSERT_EQ(TS::copy_constr, 2);
+        ASSERT_EQ(TS::move_constr, 0);
         ASSERT_EQ(TS::copy_assign, 0);
         ASSERT_EQ(TS::move_assign, 0);
         ASSERT_EQ(TS::destruct, 0);
         ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 1);
+        ASSERT_EQ(TS::const_lvalue_call_count, 2);
+        ASSERT_EQ(TS::rvalue_call_count, 0);
     }
     ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::move_constr, 1);
+    ASSERT_EQ(TS::copy_constr, 2);
+    ASSERT_EQ(TS::move_constr, 0);
     ASSERT_EQ(TS::destruct, 3);
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, CopyOptionalFromValueToAnotherValueOperatorM) {
+TEST(OptionalTest, CopyOptionalFromValueToAnotherValueOperatorTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -446,7 +446,7 @@ TEST(OptionalTest, CopyOptionalFromValueToAnotherValueOperatorM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, CopyOptionalFromEmptyToValueOperatorM) {
+TEST(OptionalTest, CopyOptionalFromEmptyToValueOperatorTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -473,7 +473,7 @@ TEST(OptionalTest, CopyOptionalFromEmptyToValueOperatorM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, CopyOptionalFromValueToEmptyM) {
+TEST(OptionalTest, CopyOptionalFromValueToEmptyTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -500,7 +500,7 @@ TEST(OptionalTest, CopyOptionalFromValueToEmptyM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveOptionalOperatorM) {
+TEST(OptionalTest, MoveOptionalOperatorTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -528,7 +528,7 @@ TEST(OptionalTest, MoveOptionalOperatorM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveOptionalFromEmptyToValueOperatorM) {
+TEST(OptionalTest, MoveOptionalFromEmptyToValueOperatorTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {
@@ -554,7 +554,7 @@ TEST(OptionalTest, MoveOptionalFromEmptyToValueOperatorM) {
     ASSERT_EQ(TS::instance_count(), 0);
 }
 
-TEST(OptionalTest, MoveOptionalOperatorFromValueToEmptyM) {
+TEST(OptionalTest, MoveOptionalOperatorFromValueToEmptyTS) {
     TS::reset();
     ASSERT_EQ(TS::instance_count(), 0);
     {

@@ -61,14 +61,14 @@ class optional {
         if (!is_initialized_) {
             throw bad_optional_access();
         }
-        return reinterpret_cast<T &>(*(T *) (&data_[0]));
+        return *reinterpret_cast<T *>(&data_[0]);
     }
 
-    T &value() const & {
+    const T &value() const & {
         if (!is_initialized_) {
             throw bad_optional_access();
         }
-        return reinterpret_cast<T &>(*(T *) (&data_[0]));
+        return *reinterpret_cast<const T*>(&data_[0]);
     }
 
     T &&value() && {
