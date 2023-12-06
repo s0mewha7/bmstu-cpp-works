@@ -20,6 +20,7 @@ dummy_vector/array_bundle.h dummy_vector/vector_template.h dummy_vector/vector_t
         dummy_optional/optional_testing.cpp
         dummy_list/list_testing.cpp
         dummy_list/list_testing.cpp
+        dummy_list/basic_list.h
 )
 target_link_libraries(${TEST_NAME} gtest_main)
 enable_testing()
