@@ -160,7 +160,7 @@ class basic_list {
 
     basic_list(std::initializer_list<T> values) {
         basic_list<T> temporary;
-        for (const auto &val: values) {
+        for (const auto &val  : values) {
             temporary.push_back(val);
         }
         swap(temporary);
@@ -169,7 +169,7 @@ class basic_list {
     basic_list(const basic_list &other) {
         if (this != &other) {
             basic_list<T> temporary;
-            for (const auto &item: other) {
+            for (const auto &item : other) {
                 temporary.push_back(item);
             }
             swap(temporary);
@@ -331,4 +331,4 @@ class basic_list {
     node *tail_ = nullptr;
     node *head_ = nullptr;
 };
-}
+}  // namespace bmstu
