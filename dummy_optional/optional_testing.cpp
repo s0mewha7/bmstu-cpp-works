@@ -53,6 +53,18 @@ class TS {
         return default_constr + copy_constr + move_constr - destruct;
     }
 
+    void print() {
+        std::cout << "default_constr" << default_constr << std::endl;
+        std::cout << "copy_constr" << copy_constr << std::endl;
+        std::cout << "move_constr" << move_constr << std::endl;
+        std::cout << "copy_assign" << copy_assign << std::endl;
+        std::cout << "move_asiugn" << move_assign << std::endl;
+        std::cout << "destructor" << destruct << std::endl;
+        std::cout << "default_constr" << lvalue_call_count << std::endl;
+        std::cout << "default_constr" << const_lvalue_call_count << std::endl;
+        std::cout << "default_constr" << rvalue_call_count << std::endl;
+    }
+
     static void reset() {
         default_constr = 0;
         copy_constr = 0;
