@@ -17,8 +17,6 @@ dummy_vector/array_bundle.h dummy_vector/vector_template.h dummy_vector/vector_t
         let7-palindrome/palidrome_check.cpp
         dummy_optional/basic_optional.h
         dummy_optional/optional_testing.cpp
-        dummy_optional/optional_testing.cpp
-        dummy_list/list_testing.cpp
         dummy_list/list_testing.cpp
         dummy_list/basic_list.h
 )
