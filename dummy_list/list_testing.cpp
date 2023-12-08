@@ -219,8 +219,6 @@ TEST(Operapor, Index) {
         ASSERT_TRUE(*it_e == a);
         ASSERT_TRUE(my_list[a] == a);
     }
-
-
 }
 
 TEST(Operator, EQs) {

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <memory>
 
 namespace bmstu {
 template<typename T>
