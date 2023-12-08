@@ -4,16 +4,16 @@
 #include <cassert>
 
 namespace bmstu {
-    template<typename T>
-    class list {
-        struct node {
-            node() = default;
-            node(node *prev, const T &value, node *next)
-                    : value(value), prev_node_(prev), next_node_(next) { }
-            T value;
-            node *next_node_ = nullptr;
-            node *prev_node_ = nullptr;
-        };
+template<typename T>
+class list {
+    struct node {
+        node() = default;
+        node(node *prev, const T &value, node *next)
+                : value(value), prev_node_(prev), next_node_(next) { }
+        T value;
+        node *next_node_ = nullptr;
+        node *prev_node_ = nullptr;
+    };
 
      public:
         template<typename value_t>
@@ -103,7 +103,7 @@ namespace bmstu {
                 return node_ != other.node_;
             }
 
-        private:
+         private:
             list::node *node_ = nullptr;
         };
         using value_type = T;
