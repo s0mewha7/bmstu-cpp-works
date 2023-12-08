@@ -101,7 +101,7 @@ TEST(Constructor, Move) {
     }
 }
 
-TEST(Method, push_back) {
+TEST(Method, PushBack) {
     bmstu::list<int> my_list({0, 1, 2, 3, 4});
 
     my_list.push_back(5);
@@ -123,7 +123,7 @@ TEST(Method, push_back) {
     }
 }
 
-TEST(Method, push_front) {
+TEST(Method, PushFront) {
     bmstu::list<int> my_list({1, 2, 3, 4, 5});
 
     my_list.push_front(0);
@@ -145,7 +145,7 @@ TEST(Method, push_front) {
     }
 }
 
-TEST(Method, clear) {
+TEST(Method, Clear) {
     bmstu::list<int> my_list({1, 2, 3, 4, 5});
 
     my_list.clear();
@@ -161,7 +161,7 @@ TEST(Method, clear) {
     ASSERT_TRUE(it_b == it_e);
 }
 
-TEST(Method, swap) {
+TEST(Method, Swap) {
     bmstu::list<int> my_list_1({0, 1, 2, 3, 4});
     bmstu::list<int> my_list_2({7, 8, 9});
 
@@ -242,7 +242,7 @@ TEST(Operator, LeftShift) {
     ASSERT_EQ(ss.str(), "[ 0, 1, 2, 3, 4, 5, 6 ]");
 }
 
-TEST(ListTest, InsertTest) {
+TEST(Method, Insert) {
     bmstu::list<int> my_list;
 
     my_list.push_back(1);
