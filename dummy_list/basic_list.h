@@ -174,7 +174,7 @@ class list {
             size_ = 0;
         }
     }
-    size_t size() const {
+    [[nodiscard]] size_t size() const {
         return size_;
     }
     void swap(list &other) noexcept {

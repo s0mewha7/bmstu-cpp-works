@@ -1,7 +1,5 @@
 # BMSTU-CPP-WORKS
-
-## BUILD AND RUN GOOGLE TEST!
-
+## Build and Run CMake GoogleTest
 ```bash
 mkdir build && cd build
 cmake ..
