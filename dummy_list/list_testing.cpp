@@ -200,7 +200,7 @@ TEST(Method, Swap) {
     }
 }
 
-TEST(Operapor, Index) {
+TEST(Operator, Index) {
     bmstu::list<int> my_list({0, 1, 2, 0, 4});
     my_list[3] = 3;
     ASSERT_EQ(my_list.size(), 5);
