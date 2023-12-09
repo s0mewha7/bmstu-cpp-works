@@ -1137,3 +1137,11 @@ TEST(DummyVector, Disability) {
     std::cout << ptr << " " << wdc;
     int b = 5;
 }
+
+TEST(DummyVector, ConcatTest) {
+    bmstu::dummy_vector<int> a = {1, 2, 3, 4, 5};
+    bmstu::dummy_vector<int> b = {6, 7, 8, 9, 10};
+    bmstu::dummy_vector<int> c = a + b;
+    bmstu::dummy_vector<int> ex = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    ASSERT_EQ(ex, c);
+}
