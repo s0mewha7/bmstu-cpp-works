@@ -3,8 +3,9 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
-#include "array_bundle.h"
 #include <vector>
+
+#include "array_bundle.h"
 
 namespace bmstu {
 template<typename Type>

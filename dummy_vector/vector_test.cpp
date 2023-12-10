@@ -1000,7 +1000,7 @@ class X {
     X& operator=(const X&other) {
         x_ = other.x_;
         return *this;
-    };
+    }
 
     bool operator==(const X& other) const {
         return x_ == other.x_;
