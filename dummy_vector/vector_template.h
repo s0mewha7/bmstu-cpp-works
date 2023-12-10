@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <utility>
 #include "array_bundle.h"
+#include <vector>
 
 namespace bmstu {
 template<typename Type>
@@ -94,10 +95,7 @@ class dummy_vector {
     }
     dummy_vector(std::initializer_list<Type> ilist)
         : size_(ilist.size()), capacity_(ilist.size()), data_(ilist.size()) {
-        iterator vector_it = begin();
-        for (auto it = ilist.begin(); it != ilist.end(); ++it, ++vector_it) {
-            *vector_it = *it;
-        }
+        std::copy(ilist.begin(), ilist.end(), begin());
     }
     void clear() noexcept {
         size_ = 0;
@@ -121,6 +119,12 @@ class dummy_vector {
     dummy_vector &operator=(dummy_vector<Type> &&other) {
         this->swap(other);
         return *this;
+    }
+    dummy_vector operator+(const dummy_vector& other) const {
+        dummy_vector result(size_ + other.size_);
+        std::move(begin(), end(), result.begin());
+        std::move(other.begin(), other.end(), result.begin() + size_);
+        return result;
     }
     iterator begin() noexcept {
         return iterator(data_.Get());

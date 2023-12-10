@@ -997,12 +997,21 @@ class X {
 
     X(const X&other) = delete;
 
-    X& operator=(const X&other) = delete;
+    X& operator=(const X&other) {
+        x_ = other.x_;
+        return *this;
+    };
 
+    bool operator==(const X& other) const {
+        return x_ == other.x_;
+    }
+
+    bool operator!=(const X& other) const {
+        return !(*this == other);
+    }
     X(X&&other)  noexcept {
         x_ = std::exchange(other.x_, 0);
     }
-
     X& operator=(X&&other) {
         x_ = std::exchange(other.x_, 0);
         return *this;
@@ -1139,9 +1148,9 @@ TEST(DummyVector, Disability) {
 }
 
 TEST(DummyVector, ConcatTest) {
-    bmstu::dummy_vector<int> a = {1, 2, 3, 4, 5};
-    bmstu::dummy_vector<int> b = {6, 7, 8, 9, 10};
-    bmstu::dummy_vector<int> c = a + b;
-    bmstu::dummy_vector<int> ex = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    bmstu::dummy_vector<X> a = {X(1), X(2), X(3), X(4), X(5)};
+    bmstu::dummy_vector<X> b = {X(6), X(7), X(8), X(9), X(10)};
+    bmstu::dummy_vector<X> c = a + b;
+    bmstu::dummy_vector<X> ex = {X(1), X(2), X(3), X(4), X(5), X(6), X(7), X(8), X(9), X(10)};
     ASSERT_EQ(ex, c);
 }
