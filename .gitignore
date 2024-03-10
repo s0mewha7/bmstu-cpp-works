@@ -1,2 +1,4 @@
 /cmake-build-debug/
+/.github/
+/cmake-build-default/
 .idea
