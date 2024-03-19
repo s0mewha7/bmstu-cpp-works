@@ -8,7 +8,6 @@ FetchContent_Declare(
         GIT_TAG release-1.12.0
 )
 FetchContent_MakeAvailable(googletest)
-
 enable_testing()
 include(GoogleTest)
 #glob all directories who end with _hw
