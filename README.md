@@ -1,5 +1,10 @@
 # BMSTU homeworks
 
+
+| **CI Service** | Build Status                                                                                                                                                                                                     |                                                                                                                                                                                                          Codestyle Check |
+|:---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| GitHub Actions | [![Build Status (GitHub Actions)](https://github.com/s0mewha7/bmstu-cpp-works/actions/workflows/ci-cmake-tests.yml/badge.svg)](https://github.com/s0mewha7/bmstu-cpp-works/actions/workflows/ci-cmake-tests.yml) | [![Build Status (GitHub Actions)](https://github.com/s0mewha7/bmstu-cpp-works/actions/workflows/ci-cpp-style-check.yml/badge.svg)](https://github.com/s0mewha7/bmstu-cpp-works/actions/workflows/ci-cpp-style-check.yml) |
+
 ## Description
 This repository contains homework assignments completed in the C++ programming language 
 using Google Test for testing. Each homework assignment is presented in a separate directory containing files with source code and tests.
@@ -38,8 +43,7 @@ sudo dnf install cmake```).
     cmake --build .
     ctest or ./name_of_project
     ```
-
-
 ## License
 This project is licensed under the [MIT License](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
 . 
+
