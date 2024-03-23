@@ -1,6 +1,16 @@
 #pragma once
 #include <iostream>
 
+
+/*
+   _____  _    _ __  __ __  ____     __  _      _____  _____ _______
+ |  __ \| |  | |  \/  |  \/  \ \   / / | |    |_   _|/ ____|__   __|
+ | |  | | |  | | \  / | \  / |\ \_/ /  | |      | | | (___    | |
+ | |  | | |  | | |\/| | |\/| | \   /   | |      | |  \___ \   | |
+ | |__| | |__| | |  | | |  | |  | |    | |____ _| |_ ____) |  | |
+ |_____/ \____/|_|  |_|_|  |_|  |_|    |______|_____|_____/   |_|
+*/
+
 namespace bmstu {
     template<typename T>
     class list {
@@ -90,11 +100,6 @@ namespace bmstu {
 
             list_iterator &operator=(const list_iterator &other) = default;
 
-//    friend bool operator==(const list::list_iterator<T> &l,
-//                           const list::list_iterator<T> &r) {
-//      return l.node_ == r.node_;
-//    }
-
             bool operator==(const list_iterator<const T> &other) const {
                 return node_ == other.node_;
             }
@@ -181,7 +186,7 @@ namespace bmstu {
                 size_ = 0;
             }
         }
-        size_t size() const {
+        [[nodiscard]] size_t size() const {
             return size_;
         }
         void swap(list &other) noexcept {

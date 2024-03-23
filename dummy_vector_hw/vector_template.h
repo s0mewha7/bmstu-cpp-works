@@ -7,6 +7,16 @@
 
 #include "array_bundle.h"
 
+/*
+ _____  _    _ __  __ __  ____     __ __      ________ _____ _______ ____  _____
+ |  __ \| |  | |  \/  |  \/  \ \   / / \ \    / /  ____/ ____|__   __/ __ \|  __ \
+ | |  | | |  | | \  / | \  / |\ \_/ /   \ \  / /| |__ | |       | | | |  | | |__) |
+ | |  | | |  | | |\/| | |\/| | \   /     \ \/ / |  __|| |       | | | |  | |  _  /
+ | |__| | |__| | |  | | |  | |  | |       \  /  | |___| |____   | | | |__| | | \ \
+ |_____/ \____/|_|  |_|_|  |_|  |_|        \/   |______\_____|  |_|  \____/|_|  \_\
+
+ */
+
 namespace bmstu {
 template<typename Type>
 class dummy_vector {
@@ -36,12 +46,12 @@ class dummy_vector {
             m_ptr = other.m_ptr;
             return *this;
         }
-        const iterator operator++(int) {
+        iterator operator++(int) {
             iterator tmp = *this;
             ++(*this);
             return tmp;
         }
-        const iterator operator--(int) {
+        iterator operator--(int) {
             iterator tmp = *this;
             --(*this);
             return tmp;

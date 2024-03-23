@@ -2,13 +2,25 @@
 
 #include <exception>
 #include <cstdint>
+#include <utility>
 #include <type_traits>
+
+
+/*
+  _____  _    _ __  __ __  ____     __   ____  _____ _______ _____ ____  _   _          _
+ |  __ \| |  | |  \/  |  \/  \ \   / /  / __ \|  __ \__   __|_   _/ __ \| \ | |   /\   | |
+ | |  | | |  | | \  / | \  / |\ \_/ /  | |  | | |__) | | |    | || |  | |  \| |  /  \  | |
+ | |  | | |  | | |\/| | |\/| | \   /   | |  | |  ___/  | |    | || |  | | . ` | / /\ \ | |
+ | |__| | |__| | |  | | |  | |  | |    | |__| | |      | |   _| || |__| | |\  |/ ____ \| |____
+ |_____/ \____/|_|  |_|_|  |_|  |_|     \____/|_|      |_|  |_____\____/|_| \_/_/    \_\______|
+
+*/
 
 namespace bmstu {
 class bad_optional_access : public std::exception {
     using exception::exception;
 
-    virtual const char *what() const noexcept {
+    [[nodiscard]] virtual const char *what() const noexcept {
         return "Bad optional access";
     }
 };
