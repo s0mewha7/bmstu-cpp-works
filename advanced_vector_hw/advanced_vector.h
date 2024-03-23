@@ -256,9 +256,11 @@ namespace bmstu {
         template<typename pType>
         void push_back(Type &&value) {
             emplace_back(std::forward<Type>(value));
+        }
 
-
-            // ...
+        void pop_back() noexcept {
+            std::destroy_n(data_.get_address(), size() - 1, 1);
+            --size_;
         }
 
         friend bool operator!=(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
@@ -326,4 +328,4 @@ namespace bmstu {
         size_t size_ = 0;
         raw_memory<Type> data_;
     };
-}
+}  // namespace bmstu
