@@ -522,7 +522,7 @@ TEST(ListTest, IteratorsHard) {
 }
 
 class BmstuListlistTests : public ::testing::Test {
-protected:
+ protected:
     void SetUp() {
     }
 
@@ -616,7 +616,7 @@ TEST_F(BmstuListlistTests, DeletionSpy) {
             OnDeleteInstance();
         }
 
-    private:
+     private:
         void OnAddInstance() noexcept {
             if (instance_counter_ptr_) {
                 ++(*instance_counter_ptr_);
