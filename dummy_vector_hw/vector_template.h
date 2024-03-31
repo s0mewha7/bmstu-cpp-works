@@ -14,8 +14,8 @@
  | |  | | |  | | |\/| | |\/| | \   /     \ \/ / |  __|| |       | | | |  | |  _  /
  | |__| | |__| | |  | | |  | |  | |       \  /  | |___| |____   | | | |__| | | \ \
  |_____/ \____/|_|  |_|_|  |_|  |_|        \/   |______\_____|  |_|  \____/|_|  \_\
+*/
 
- */
 
 namespace bmstu {
 template<typename Type>
@@ -101,17 +101,21 @@ class dummy_vector {
             *first = *otherfirst;
         }
     }
+
     dummy_vector(dummy_vector<Type> &&other) noexcept {
         this->swap(other);
     }
+
     dummy_vector(std::initializer_list<Type> ilist)
         : size_(ilist.size()), capacity_(ilist.size()), data_(ilist.size()) {
         std::copy(ilist.begin(), ilist.end(), begin());
     }
+
     void clear() noexcept {
         size_ = 0;
         capacity_ = 0;
     }
+
     dummy_vector &operator=(const dummy_vector<Type> &other) {
         if (other.empty()) {
             clear();
@@ -127,6 +131,7 @@ class dummy_vector {
         }
         return *this;
     }
+
     dummy_vector &operator=(dummy_vector<Type> &&other) {
         this->swap(other);
         return *this;

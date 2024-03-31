@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <sstream>
 #include "raw_memory.h"
+#include <vector>
 
 /*
            _______      __     _   _  _____ ______ _____   __      ________ _____ _______ ____  _____
@@ -21,6 +22,7 @@ namespace bmstu {
     template <typename Type>
     class advanced_vector {
     public:
+        // Iterator
         struct iterator {
             using iterator_category = std::random_access_iterator_tag;
             using difference_type = std::ptrdiff_t;
@@ -186,14 +188,14 @@ namespace bmstu {
 
         typename iterator::reference at(size_t index) {
             if (index >= size_) {
-                throw std::out_of_range("Index out of range!");
+                throw std::out_of_range("Index out of range! Need another index < size of vector");
             }
             return *(data_ + index);
         }
 
         typename const_iterator::reference at(size_t index) const {
             if (index >= size_) {
-                throw std::out_of_range("Index out of range!");
+                throw std::out_of_range("Index out of range! Need another index < size of vector");
             }
 
             return *(data_ + index);
@@ -230,27 +232,63 @@ namespace bmstu {
             refill(new_data);
         }
 
-        iterator insert(const_iterator pos, Type &&value) {
-            /*code*/
-        }
-
         template<typename ... Args>
         Type &emplace_back(Args &&... args) {
-            /*code*/
+            if (size_ == capacity()) {
+                raw_memory<Type> new_data(create_new_data());
+                new (new_data + size_) Type(std::forward<Args>(args)...);
+                refill(new_data);
+            }
+            else {
+                new(data_ + size_) Type(std::forward<Args>(args)...);
+            }
+            ++size_;
+            return data_[size_ - 1];
         }
 
         template<typename ... Args>
         iterator emplace(const_iterator pos, Args &&... args) {
-            /*code*/
+            size_t position = pos - cbegin();
+            if (size_ == capacity()) {
+                raw_memory<Type> new_data(create_new_data());
+                new (new_data + position) Type(std::forward<Args>(args)...);
+                size_t quantity = position;
+                CopyOrMoveData(new_data, 0, quantity, 0);
+                quantity = size_ - position;
+                CopyOrMoveData(new_data, position, quantity, position + 1);
+                ReplacingOldMemory(new_data);
+            }
+            else {
+                if (pos == cend()) {
+                    new(end()) Type(std::forward<Args>(args)...);
+                }
+                else{
+                    if (end() != begin()) {
+                        Type temp(std::forward<Args>(args)...);
+                        new(end()) Type(std::forward<Type>(*(end() - 1)));
+                        std::move_backward(begin() + position, end() - 1, end());
+                        data_[position] = std::forward<Type>(temp);
+                    }
+                    else {
+                        new (data_.GetAddress()) Type(std::forward<Args>(args)...);
+                    }
+                }
+            }
+            ++size_;
+            return begin() + position;
         }
 
         iterator erase(const_iterator pos) {
-            /*code*/
+            iterator res_it = begin() + (pos - begin());
+            std::move(res_it + 1, end() ,res_it);
+            std::destroy_n(end() - 1, 1);
+            --size_;
+            return res_it;
         }
 
         template<typename iType>
         iterator insert(const_iterator pos, Type &&value) {
-            /*code*/
+            return emplace(pos, std::forward<Type>(value));
         }
 
         template<typename pType>
@@ -263,6 +301,7 @@ namespace bmstu {
             --size_;
         }
 
+        // Bool operators
         friend bool operator!=(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
             return !(left == right);
         }
@@ -303,6 +342,12 @@ namespace bmstu {
                 }
             }
             return ((fr != right.end()) && (fl == left.end()));
+        }
+
+        size_t create_new_data() {
+            size_t new_capacity = size_;
+            size_ == 0 ? ++new_capacity : new_capacity = size_ * 2;
+            return new_capacity;
         }
 
         void copy_or_move(raw_memory<Type>& new_data, size_t from, size_t quantity, size_t dest_from) {
