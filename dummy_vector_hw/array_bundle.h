@@ -1,8 +1,8 @@
 // array_bundle
 
 #pragma once
-
 #include <cstdlib>
+#include <utility>
 
 template<typename T>
 class array_bundle {

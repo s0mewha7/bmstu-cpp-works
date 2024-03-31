@@ -5,8 +5,10 @@
 #include <stdexcept>
 #include <algorithm>
 #include <sstream>
-#include "raw_memory.h"
 #include <vector>
+#include <utility>
+
+#include "raw_memory.h"
 
 /*
            _______      __     _   _  _____ ______ _____   __      ________ _____ _______ ____  _____
@@ -19,70 +21,68 @@
 */
 
 namespace bmstu {
-    template <typename Type>
-    class advanced_vector {
-    public:
-        // Iterator
-        struct iterator {
-            using iterator_category = std::random_access_iterator_tag;
-            using difference_type = std::ptrdiff_t;
-            using value_type = Type;
-            using pointer = Type *;
-            using reference = Type &;
-            explicit iterator(pointer ptr) : m_ptr(ptr) {}
-            reference operator*() const {
-                return *m_ptr;
-            }
-            pointer operator->() {
-                return m_ptr;
-            }
-            iterator &operator++() {
-                ++m_ptr;
-                return *this;
-            }
-            iterator &operator--() {
-                --m_ptr;
-                return *this;
-            }
-            iterator &operator=(const iterator &other) {
-                m_ptr = other.m_ptr;
-                return *this;
-            }
-            iterator operator++(int) {
-                iterator tmp = *this;
-                ++(*this);
-                return tmp;
-            }
-            iterator operator--(int) {
-                iterator tmp = *this;
-                --(*this);
-                return tmp;
-            }
-            friend bool operator==(const iterator &a, const iterator &b) {
-                return a.m_ptr == b.m_ptr;
-            }
+template <typename Type>
+class advanced_vector {
+ public:
+    struct iterator {
+        using iterator_category = std::random_access_iterator_tag;
+        using difference_type = std::ptrdiff_t;
+        using value_type = Type;
+        using pointer = Type *;
+        using reference = Type &;
+        explicit iterator(pointer ptr) : m_ptr(ptr) {}
+        reference operator*() const {
+            return *m_ptr;
+        }
+        pointer operator->() {
+            return m_ptr;
+        }
+        iterator &operator++() {
+            ++m_ptr;
+            return *this;
+        }
+        iterator &operator--() {
+            --m_ptr;
+            return *this;
+        }
+        iterator &operator=(const iterator &other) {
+            m_ptr = other.m_ptr;
+            return *this;
+        }
+        iterator operator++(int) {
+            iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+        iterator operator--(int) {
+            iterator tmp = *this;
+            --(*this);
+            return tmp;
+        }
+        friend bool operator==(const iterator &a, const iterator &b) {
+            return a.m_ptr == b.m_ptr;
+        }
 
-            friend bool operator!=(const iterator &a, const iterator &b) {
-                return !(a == b);
-            }
-            friend difference_type operator-(const iterator &a, const iterator &b) {
-                return a.m_ptr - b.m_ptr;
-            }
-            iterator operator+(const difference_type value) noexcept {
-                iterator copy(*this);
-                copy.m_ptr += value;
-                return copy;
-            }
-            iterator operator-(const difference_type value) noexcept {
-                iterator copy(*this);
-                copy.m_ptr -= value;
-                return copy;
-            }
-        private:
-            pointer m_ptr;
-
-        };
-
+        friend bool operator!=(const iterator &a, const iterator &b) {
+            return !(a == b);
+        }
+        friend difference_type operator-(const iterator &a, const iterator &b) {
+            return a.m_ptr - b.m_ptr;
+        }
+        iterator operator+(const difference_type value) noexcept {
+            iterator copy(*this);
+            copy.m_ptr += value;
+            return copy;
+        }
+        iterator operator-(const difference_type value) noexcept {
+            iterator copy(*this);
+            copy.m_ptr -= value;
+            return copy;
+        }
+    // Pointer
+     private:
+        pointer m_ptr;
+    };
         using const_iterator = const iterator;
         advanced_vector() noexcept = default;
         explicit advanced_vector(size_t size) : size_(size), data_(size) {
@@ -94,11 +94,13 @@ namespace bmstu {
             std::destroy_n(data_.GetAddress(), size_);
         }
 
-        advanced_vector(const advanced_vector &other) : data_(other.size_), size_(other.size_){
+        advanced_vector(const advanced_vector &other) : data_(other.size_), size_(other.size_) {
             std::uninitialized_copy_n(other.data_.get_address(), other.size_, data_.get_address());
         }
 
-        advanced_vector(advanced_vector &&other) noexcept : data_(std::move(other.data_)), size_(std::move(other.size_)){
+        advanced_vector(advanced_vector &&other) noexcept :
+        data_(std::move(other.data_)),
+        size_(std::move(other.size_)) {
             other.size_ = 0;
         }
 
@@ -123,15 +125,14 @@ namespace bmstu {
                 if (other.size_ > data_.capacity()) {
                     advanced_vector other_copy(other);
                     Swap(other_copy);
-                }
-                else {
+                } else {
                     if (other.size_ < size_) {
                         std::copy_n(other.data_.GetAddress(), other.size_, data_.GetAddress());
                         std::destroy_n(data_.GetAddress() + other.size_, size_ - other.size_);
-                    }
-                    else {
+                    } else {
                         std::copy_n(other.data_.GetAddress(), size_, data_.GetAddress());
-                        std::uninitialized_copy_n(other.data_.GetAddress() + size_, other.size_ - size_, data_.GetAddress() + size_);
+                        std::uninitialized_copy_n(other.data_.GetAddress() + size_, other.size_ - size_,
+                                                  data_.GetAddress() + size_);
                     }
                 }
                 size_ = other.size_;
@@ -147,6 +148,7 @@ namespace bmstu {
             return *this;
         }
 
+        // Iterators
         const_iterator begin() const noexcept {
             return const_cast<advanced_vector&>(*this).begin();
         }
@@ -162,7 +164,6 @@ namespace bmstu {
         const_iterator cend() const noexcept {
             return const_cast<advanced_vector&>(*this).end();
         }
-
 
         void Swap(advanced_vector& other) noexcept {
             std::swap(data_, other.data_);
@@ -217,8 +218,7 @@ namespace bmstu {
                 reserve(new_size);
                 std::uninitialized_value_construct_n(data_.get_address() + size_, new_size - size_);
                 size_ = new_size;
-            }
-            else {
+            } else {
                 std::destroy_n(data_.get_address() + new_size, size_ - new_size);
                 size_ = new_size;
             }
@@ -238,8 +238,7 @@ namespace bmstu {
                 raw_memory<Type> new_data(create_new_data());
                 new (new_data + size_) Type(std::forward<Args>(args)...);
                 refill(new_data);
-            }
-            else {
+            } else {
                 new(data_ + size_) Type(std::forward<Args>(args)...);
             }
             ++size_;
@@ -257,19 +256,16 @@ namespace bmstu {
                 quantity = size_ - position;
                 copy_or_move(new_data, position, quantity, position + 1);
                 replace_memory(new_data);
-            }
-            else {
+            } else {
                 if (pos == cend()) {
                     new(end()) Type(std::forward<Args>(args)...);
-                }
-                else{
+                } else {
                     if (end() != begin()) {
                         Type temp(std::forward<Args>(args)...);
                         new(end()) Type(std::forward<Type>(*(end() - 1)));
                         std::move_backward(begin() + position, end() - 1, end());
                         data_[position] = std::forward<Type>(temp);
-                    }
-                    else {
+                    } else {
                         new (data_.GetAddress()) Type(std::forward<Args>(args)...);
                     }
                 }
@@ -280,7 +276,7 @@ namespace bmstu {
 
         iterator erase(const_iterator pos) {
             iterator res_it = begin() + (pos - begin());
-            std::move(res_it + 1, end() ,res_it);
+            std::move(res_it + 1, end(), res_it);
             std::destroy_n(end() - 1, 1);
             --size_;
             return res_it;
@@ -302,6 +298,9 @@ namespace bmstu {
         }
 
         // Bool operators
+        friend bool operator==(const advanced_vector<Type> &left , const advanced_vector<Type> &right) {
+            return left == right;
+        }
         friend bool operator!=(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
             return !(left == right);
         }
@@ -330,47 +329,46 @@ namespace bmstu {
             return os;
         }
 
-    private:
-        static bool lexicographical_compare_(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
-            auto fl = left.begin(), fr = right.begin();
-            for (; (fl != left.end()) && (fr != right.end()); ++fl, ++fr) {
-                if (*fl < *fr) {
-                    return true;
-                }
-                if (*fr < *fl) {
-                    return false;
-                }
+ private:
+    static bool lexicographical_compare_(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
+        auto fl = left.begin(), fr = right.begin();
+        for (; (fl != left.end()) && (fr != right.end()); ++fl, ++fr) {
+            if (*fl < *fr) {
+                return true;
             }
-            return ((fr != right.end()) && (fl == left.end()));
-        }
-
-        size_t create_new_data() {
-            size_t new_capacity = size_;
-            size_ == 0 ? ++new_capacity : new_capacity = size_ * 2;
-            return new_capacity;
-        }
-
-        void copy_or_move(raw_memory<Type>& new_data, size_t from, size_t quantity, size_t dest_from) {
-            if constexpr (std::is_nothrow_move_constructible_v<Type> || !std::is_copy_constructible_v<Type>) {
-                std::uninitialized_move_n(data_.GetAddress() + from, quantity, new_data.GetAddress() + dest_from);
-            }
-            else {
-                std::uninitialized_copy_n(data_.GetAddress() + from, quantity, new_data.GetAddress() + dest_from);
+            if (*fr < *fl) {
+                return false;
             }
         }
+        return ((fr != right.end()) && (fl == left.end()));
+    }
 
-        void refill(raw_memory<Type> &new_data) {
-            copy_or_move(new_data, 0, size_, 0);
-            replace_memory(new_data);
-        }
+    size_t create_new_data() {
+        size_t new_capacity = size_;
+        size_ == 0 ? ++new_capacity : new_capacity = size_ * 2;
+        return new_capacity;
+    }
 
-        void replace_memory(raw_memory<Type> &new_data) {
-            // Destroy elements of data_
-            std::destroy_n(data_.get_address(), size_);
-            // Remove old raw memory, swapping with new
-            data_.swap(new_data);
+    void copy_or_move(const raw_memory<Type>& new_data, size_t from, size_t quantity, size_t dest_from) {
+        if constexpr (std::is_nothrow_move_constructible_v<Type> || !std::is_copy_constructible_v<Type>) {
+            std::uninitialized_move_n(data_.GetAddress() + from, quantity, new_data.GetAddress() + dest_from);
+        } else {
+            std::uninitialized_copy_n(data_.GetAddress() + from, quantity, new_data.GetAddress() + dest_from);
         }
-        size_t size_ = 0;
-        raw_memory<Type> data_;
-    };
+    }
+
+    void refill(const raw_memory<Type> &new_data) {
+        copy_or_move(new_data, 0, size_, 0);
+        replace_memory(new_data);
+    }
+
+    void replace_memory(const raw_memory<Type> &new_data) {
+        // Destroy elements of data_
+        std::destroy_n(data_.get_address(), size_);
+        // Remove old raw memory, swapping with new
+        data_.swap(new_data);
+    }
+    size_t size_ = 0;
+    raw_memory<Type> data_;
+};
 }  // namespace bmstu
