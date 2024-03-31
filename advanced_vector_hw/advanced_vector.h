@@ -253,10 +253,10 @@ namespace bmstu {
                 raw_memory<Type> new_data(create_new_data());
                 new (new_data + position) Type(std::forward<Args>(args)...);
                 size_t quantity = position;
-                CopyOrMoveData(new_data, 0, quantity, 0);
+                copy_or_move(new_data, 0, quantity, 0);
                 quantity = size_ - position;
-                CopyOrMoveData(new_data, position, quantity, position + 1);
-                ReplacingOldMemory(new_data);
+                copy_or_move(new_data, position, quantity, position + 1);
+                replace_memory(new_data);
             }
             else {
                 if (pos == cend()) {
