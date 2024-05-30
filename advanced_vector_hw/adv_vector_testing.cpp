@@ -1,8 +1,8 @@
-#include <iostream>
-#include <algorithm>
 #include <gtest/gtest.h>
-#include <string>
+#include <iostream>
 #include <vector>
+#include <utility>
+#include <numeric>
 
 #include "advanced_vector.h"
 
@@ -10,7 +10,7 @@ struct nocopyconstructed {
     explicit nocopyconstructed(size_t value_) : value(value_) {}
     nocopyconstructed() = delete;
     ~nocopyconstructed() = default;
-    nocopyconstructed(nocopyconstructed &other) = delete;  /// Copy constructor is not allowed
+    nocopyconstructed(nocopyconstructed &other) = delete;  // NOLINT
 
     /// move constructor is default
     nocopyconstructed &operator=(const nocopyconstructed &other) = default;
@@ -30,7 +30,7 @@ struct nomoveconstructed {
     nomoveconstructed() = delete;
     ~nomoveconstructed() = default;
 
-    nomoveconstructed(nomoveconstructed &other) = default;
+    nomoveconstructed(nomoveconstructed &other) = default; // NOLINT
     nomoveconstructed &operator=(const nomoveconstructed &other) = delete;
     nomoveconstructed &operator=(nomoveconstructed &&other) = delete;
 
@@ -46,7 +46,7 @@ struct nomoveconstructed {
 };
 
 template <typename Type>
-void element_checking(bmstu::advanced_vector<Type> &curr, const Type &value = Type{}) {
+void element_checking(bmstu::advanced_vector<Type> &curr, const Type &value = Type{}) { //NOLINT
     for (size_t index = 0; index < curr.size(); ++index) {
         ASSERT_EQ(curr[index], value);
     }
@@ -109,7 +109,7 @@ TEST(InitializerListConstruct, INTEGER) {
 }
 
 TEST(InitializerListConstruct, WSTRINGS) {
-    using namespace std::literals;
+    using namespace std::literals; // NOLINT
     bmstu::advanced_vector<std::wstring> juggernaut{L"Сундук для рун"s, L"рундук!"s};
     ASSERT_EQ(juggernaut[0], L"Сундук для рун"s);
     ASSERT_EQ(juggernaut[1], L"рундук!"s);
