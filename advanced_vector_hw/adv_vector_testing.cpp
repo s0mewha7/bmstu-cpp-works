@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include <gtest/gtest.h>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -31,7 +30,7 @@ struct nomoveconstructed {
     nomoveconstructed() = delete;
     ~nomoveconstructed() = default;
 
-    nomoveconstructed(nomoveconstructed &other) = default; /// copy constructor in allowed
+    nomoveconstructed(nomoveconstructed &other) = default;
     nomoveconstructed &operator=(const nomoveconstructed &other) = delete;
     nomoveconstructed &operator=(nomoveconstructed &&other) = delete;
 
@@ -68,7 +67,6 @@ struct nodefaultconstructed {
     [[nodiscard]] size_t getvalue() const noexcept {
         return value;
     }
-
 };
 
 TEST(DefaultConstructor, WithoutDefaultConstruct) {
@@ -86,7 +84,6 @@ TEST(DefaultConstructor, WSTRINGS) {
 TEST(ParamConstuctor, WithoutDefaultConstruct) {
     bmstu::advanced_vector<nodefaultconstructed> vec(10);
     ASSERT_EQ(vec.size(), 10);
-
 }
 
 TEST(ParamConstructor, INTEGER) {
