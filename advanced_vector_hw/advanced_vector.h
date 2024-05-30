@@ -86,7 +86,9 @@ class advanced_vector {
         using const_iterator = const iterator;
 
         advanced_vector() noexcept = default;
-        explicit advanced_vector(size_t size) : size_(size), data_(size) { // WTF?? WHY IT DOESNT WORKS WITHOUT CONSTEXPR!?!!?
+
+        // WTF?? WHY IT DOESNT WORKS WITHOUT CONSTEXPR!?!!?
+        explicit advanced_vector(size_t size) : size_(size), data_(size) {
             if constexpr (std::is_default_constructible_v<Type>) {
                 std::uninitialized_value_construct_n(data_.get_address(), size);
             }
@@ -364,7 +366,7 @@ class advanced_vector {
         replace_memory(new_data);
     }
 
-    void swapping(advanced_vector<Type> &other) {
+    void swapping(const advanced_vector<Type> &other) {
         std::swap(*this, other);
     }
 
