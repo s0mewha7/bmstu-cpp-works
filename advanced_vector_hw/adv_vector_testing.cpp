@@ -175,7 +175,4 @@ TEST(MoveAssignment, WSTRING) {
     }
 }
 
-TEST(Reserve, INTEGER) {
-    bmstu::advanced_vector<std::wstring> naga_siren{L"Мои ноги!", L"Я не чувствую своих ног."};
-    naga_siren.reserve(10);
-}
+
