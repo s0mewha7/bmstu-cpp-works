@@ -84,24 +84,29 @@ class advanced_vector {
         pointer m_ptr;
     };
         using const_iterator = const iterator;
+
         advanced_vector() noexcept = default;
-        explicit advanced_vector(size_t size) : size_(size), data_(size) {
-            std::uninitialized_value_construct_n(data_.get_address(), size);
+        explicit advanced_vector(size_t size) : size_(size), data_(size) { // WTF?? WHY IT DOESNT WORKS WITHOUT CONSTEXPR!?!!?
+            if constexpr (std::is_default_constructible_v<Type>) {
+                std::uninitialized_value_construct_n(data_.get_address(), size);
+            }
         }
 
         // Destructor
         ~advanced_vector() {
-            std::destroy_n(data_.GetAddress(), size_);
+            if (size_ != 0) {
+                std::destroy_n(data_.get_address(), size_);
+            }
         }
 
         advanced_vector(const advanced_vector &other) : data_(other.size_), size_(other.size_) {
-            std::uninitialized_copy_n(other.data_.get_address(), other.size_, data_.get_address());
+            std::uninitialized_copy_n(other.data_.get_address(), other.size_, this->data_.get_address());
         }
 
-        advanced_vector(advanced_vector &&other) noexcept :
-        data_(std::move(other.data_)),
-        size_(std::move(other.size_)) {
-            other.size_ = 0;
+        advanced_vector(advanced_vector &&dying) noexcept :
+        data_(std::move(dying.data_)),
+        size_(std::move(dying.size_)) {
+            dying.size_ = 0;
         }
 
         [[nodiscard]] size_t size() const noexcept {
@@ -113,7 +118,11 @@ class advanced_vector {
         }
 
         advanced_vector(std::initializer_list<Type> ilist) : data_(ilist.size()), size_(ilist.size()) {
-            std::copy(ilist.begin(), ilist.end(), begin());
+            if constexpr (std::is_nothrow_move_constructible_v<Type> || !std::is_copy_constructible_v<Type>) {
+                std::uninitialized_move_n(ilist.begin(), ilist.size(), data_.get_address());
+            } else {
+                std::uninitialized_copy_n(ilist.begin(), ilist.size(), data_.get_address());
+            }
         }
 
         void clear() {
@@ -124,7 +133,7 @@ class advanced_vector {
             if (this != &other) {
                 if (other.size_ > data_.capacity()) {
                     advanced_vector other_copy(other);
-                    Swap(other_copy);
+                    this->swapping(other_copy);
                 } else {
                     if (other.size_ < size_) {
                         std::copy_n(other.data_.GetAddress(), other.size_, data_.GetAddress());
@@ -142,19 +151,20 @@ class advanced_vector {
 
         advanced_vector &operator=(advanced_vector &&other) noexcept {
             if (this != &other) {
-                data_.swap(other.data_);
-                std::swap(size_, other.size_);
+                data_ = std::move(other.data_);
+                size_ = other.size_;
+                other.size_ = 0;
             }
             return *this;
         }
 
         // Iterators
         const_iterator begin() const noexcept {
-            return const_cast<advanced_vector&>(*this).begin();
+            return const_iterator(const_cast<advanced_vector&>(*this).begin());
         }
 
         const_iterator end() const noexcept {
-            return const_cast<advanced_vector&>(*this).end();
+            return const_iterator(const_cast<advanced_vector&>(*this).end());
         }
 
         const_iterator cbegin() const noexcept {
@@ -172,11 +182,11 @@ class advanced_vector {
 
         // Iterators
         iterator begin() {
-            return data_.get_address();
+            return iterator(data_.get_address());
         }
 
         iterator end() {
-            return data_.get_address() + size_;
+            return iterator(data_.get_address() + size_);
         }
 
         typename iterator::reference operator[](size_t index) noexcept {
@@ -298,23 +308,16 @@ class advanced_vector {
         }
 
         // Bool operators
-        friend bool operator==(const advanced_vector<Type> &left , const advanced_vector<Type> &right) {
-            return left == right;
-        }
-        friend bool operator!=(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
-            return !(left == right);
-        }
-        friend bool operator<(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
-            return lexicographical_compare_(left, right);
-        }
-        friend bool operator>(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
-            return !(left <= right);
-        }
-        friend bool operator<=(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
-            return !(right < left);
-        }
-        friend bool operator>=(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
-            return !(left < right);
+        bool operator==(const advanced_vector &other) const {
+            if (size_ != other.size_) {
+                return false;
+            }
+            for (size_t i = 0; i < size_; ++i) {
+                if (data_[i] != other.data_[i]) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         friend std::ostream &operator<<(std::ostream &os, const advanced_vector<Type> &other) {
@@ -342,7 +345,6 @@ class advanced_vector {
         }
         return ((fr != right.end()) && (fl == left.end()));
     }
-
     size_t create_new_data() {
         size_t new_capacity = size_;
         size_ == 0 ? ++new_capacity : new_capacity = size_ * 2;
@@ -351,15 +353,19 @@ class advanced_vector {
 
     void copy_or_move(const raw_memory<Type>& new_data, size_t from, size_t quantity, size_t dest_from) {
         if constexpr (std::is_nothrow_move_constructible_v<Type> || !std::is_copy_constructible_v<Type>) {
-            std::uninitialized_move_n(data_.GetAddress() + from, quantity, new_data.GetAddress() + dest_from);
+            std::uninitialized_move_n(data_.get_address() + from, quantity, new_data.get_address() + dest_from);
         } else {
-            std::uninitialized_copy_n(data_.GetAddress() + from, quantity, new_data.GetAddress() + dest_from);
+            std::uninitialized_copy_n(data_.get_address() + from, quantity, new_data.get_address() + dest_from);
         }
     }
 
     void refill(const raw_memory<Type> &new_data) {
         copy_or_move(new_data, 0, size_, 0);
         replace_memory(new_data);
+    }
+
+    void swapping(advanced_vector<Type> &other) {
+        std::swap(*this, other);
     }
 
     void replace_memory(const raw_memory<Type> &new_data) {

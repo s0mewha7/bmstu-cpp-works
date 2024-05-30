@@ -16,8 +16,9 @@ class raw_memory {
         deallocate_(buffer_);
     }
 
-    raw_memory(const raw_memory&& other)  noexcept : capacity_(std::exchange(other.capacity_, 0)),
-    buffer_(std::exchange(other.buffer_, nullptr)) {}
+    raw_memory(const raw_memory &&other) noexcept: capacity_(
+            std::exchange(const_cast<size_t &>(other.capacity_), 0)),
+            buffer_(std::exchange(const_cast<rtype *&>(other.buffer_),nullptr)) {}
 
     raw_memory& operator=(raw_memory&& other) noexcept {
         if (buffer_ != nullptr) {
