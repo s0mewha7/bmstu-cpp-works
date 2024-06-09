@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <utility>
-#include <numeric>
 
 #include "advanced_vector.h"
 
@@ -52,7 +51,7 @@ void element_checking(bmstu::advanced_vector<Type> &curr, const Type &value = Ty
     }
 }
 
-// Without any Default Constructor
+/// Without any Default Constructor
 struct nodefaultconstructed {
     size_t value;
     explicit nodefaultconstructed(size_t value) : value(value) {}
@@ -225,7 +224,6 @@ TEST(Resize, WithoutDefaultConstruct) {
     ASSERT_EQ(vec[2].getvalue(), 0);
     vec.resize(1);
     ASSERT_EQ(vec.size(), 1);
-    // Capacity may still be larger than the size
     ASSERT_GE(vec.capacity(), 1);
     ASSERT_EQ(vec[0].getvalue(), 1);
 }
