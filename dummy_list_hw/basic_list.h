@@ -297,8 +297,8 @@ class list {
         ++size_;
         return pos;
     }
-
-    list<T>& concat(bmstu::list<T> &other) {
+    // Concat method for list
+    list<T>& concat(bmstu::list<T> &other) { // NOLINT
         if (this == &other) return *this;
 
         if (other.empty()) return *this;

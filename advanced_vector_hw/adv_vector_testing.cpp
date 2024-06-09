@@ -173,7 +173,7 @@ TEST(MoveAssignment, WSTRING) {
 }
 
 TEST(Reserve, INTEGER) {
-    bmstu::advanced_vector<int> vec{6, 6,6};
+    bmstu::advanced_vector<int> vec{6, 6, 6};
     vec.reserve(10);
     ASSERT_EQ(vec.size(), 3);
     ASSERT_EQ(vec.capacity(), 10);
@@ -341,4 +341,4 @@ TEST(Output, STRING) {
     std::cout << vec;
     std::string output = testing::internal::GetCapturedStdout();
     ASSERT_EQ("[All done, sir]", output);
-}
+} // NOLINT
