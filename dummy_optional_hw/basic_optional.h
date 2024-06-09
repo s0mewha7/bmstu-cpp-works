@@ -21,7 +21,7 @@ class bad_optional_access : public std::exception {
     using exception::exception;
 
     [[nodiscard]] virtual const char *what() const noexcept {
-        return "Bad optional access";
+        return "Bad optional access... Optional doesn't contain a value|";
     }
 };
 template<typename T>

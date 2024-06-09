@@ -136,7 +136,7 @@ TEST(MoveConstructor, Integer) {
 
 TEST(MoveConstructor, string) {
     bmstu::advanced_vector<std::wstring> runduk{L"Рундук", L"Рундук", L"Рундук",
-                                    L"Рундук", L"Рундук"};
+                                                L"Рундук", L"Рундук"};
     bmstu::advanced_vector<std::wstring> moved(std::move(runduk));
     std::wstring runduk_str = L"Рундук";
     ASSERT_EQ(runduk_str, runduk_str);
@@ -172,4 +172,173 @@ TEST(MoveAssignment, WSTRING) {
     }
 }
 
+TEST(Reserve, INTEGER) {
+    bmstu::advanced_vector<int> vec{6, 6,6};
+    vec.reserve(10);
+    ASSERT_EQ(vec.size(), 3);
+    ASSERT_EQ(vec.capacity(), 10);
+    element_checking(vec, 6);
+    vec.reserve(2);
+    ASSERT_EQ(vec.size(), 3);
+    element_checking(vec, 6);
+}
 
+TEST(Reserve, WSTRING) {
+    bmstu::advanced_vector<std::wstring> runduk{L"Рундук", L"Нетворс", L"Тараска"};
+    runduk.reserve(11);
+    ASSERT_EQ(runduk.size(), 3);
+    ASSERT_EQ(runduk.capacity(), 11);
+    ASSERT_EQ(runduk[0], L"Рундук");
+    ASSERT_EQ(runduk[1], L"Нетворс");
+    ASSERT_EQ(runduk[2], L"Тараска");
+    runduk.reserve(2);
+    ASSERT_EQ(runduk.size(), 3);
+    ASSERT_EQ(runduk.capacity(), 11);
+    ASSERT_EQ(runduk[0], L"Рундук");
+    ASSERT_EQ(runduk[1], L"Нетворс");
+    ASSERT_EQ(runduk[2], L"Тараска");
+}
+
+TEST(Resize, INTEGER) {
+    bmstu::advanced_vector<int> vec{322, 322, 322, 322, 322};
+    vec.resize(1);
+    ASSERT_EQ(vec.size(), 1);
+    ASSERT_EQ(vec.capacity(), 5);
+    ASSERT_EQ(vec[0], 322);
+    element_checking(vec, 322);
+    vec.resize(11);
+    ASSERT_EQ(vec.size(), 11);
+    ASSERT_EQ(vec.capacity(), 11);
+    ASSERT_EQ(vec[0], 322);
+    for (size_t index = 1; index < vec.size(); ++index) {
+        ASSERT_EQ(vec[index], 0);
+    }
+}
+
+TEST(Resize, WithoutDefaultConstruct) {
+    bmstu::advanced_vector<nodefaultconstructed> vec{nodefaultconstructed(1), nodefaultconstructed(2)};
+    vec.resize(3);
+    ASSERT_EQ(vec.size(), 3);
+    ASSERT_GE(vec.capacity(), 2);
+    ASSERT_EQ(vec[0].getvalue(), 1);
+    ASSERT_EQ(vec[1].getvalue(), 2);
+    ASSERT_EQ(vec[2].getvalue(), 0);
+    vec.resize(1);
+    ASSERT_EQ(vec.size(), 1);
+    // Capacity may still be larger than the size
+    ASSERT_GE(vec.capacity(), 1);
+    ASSERT_EQ(vec[0].getvalue(), 1);
+}
+
+TEST(PopBack, INTEGER) {
+    bmstu::advanced_vector<int> vec{322, 322, 322};
+    vec.pop_back();
+    ASSERT_EQ(vec.size(), 2);
+    ASSERT_EQ(vec.capacity(), 3);
+    element_checking(vec, 322);
+}
+
+TEST(PopBack, WSTRING) {
+    bmstu::advanced_vector<std::wstring> heroes_dota{L"Monkey King", L"Primal Beast", L"Abaddon"};
+    heroes_dota.pop_back();
+    ASSERT_EQ(heroes_dota.size(), 2);
+    ASSERT_EQ(heroes_dota.capacity(), 3);
+    ASSERT_EQ(heroes_dota[0], L"Monkey King");
+    ASSERT_EQ(heroes_dota[1], L"Primal Beast");
+    // ASSERT_EQ(heroes_dota[2], L"Abaddon");
+}
+
+TEST(PushBack, WithoutDefaultConstruct) {
+    bmstu::advanced_vector<nodefaultconstructed> vec{nodefaultconstructed(1), nodefaultconstructed(2),
+                                                     nodefaultconstructed(3), nodefaultconstructed(4),
+                                                     nodefaultconstructed(5)};
+    vec.push_back(nodefaultconstructed(2));
+    ASSERT_EQ(vec[5].getvalue(), 2);
+}
+
+TEST(PushBack, INTEGER) {
+    bmstu::advanced_vector<int> vec{322, 322, 322};
+    vec.push_back(322);
+    ASSERT_EQ(vec[3], 322);
+}
+
+TEST(PushBack, Strings) {
+    bmstu::advanced_vector<std::wstring> bad{L"Как", L"теперь", L"играть", L"на"};
+    bad.push_back(L"тинкере");
+    ASSERT_EQ(bad[4], L"тинкере");
+}
+
+TEST(Insert, INTEGER) {
+    bmstu::advanced_vector<int> numbers{2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+    numbers.insert(numbers.begin() + 3, 4);
+    numbers.insert(numbers.end(), 2);
+    ASSERT_EQ(numbers[3], 4);
+    ASSERT_EQ(numbers[numbers.size() - 1], 2);
+}
+
+TEST(Insert, WSTRING) {
+    bmstu::advanced_vector<std::wstring> vec{L"Как", L"теперь", L"играть", L"на"};
+    vec.insert(vec.begin() + 1, L"вдота");
+    vec.insert(vec.end(), L"тинкере?!!");
+    ASSERT_EQ(vec[1], L"вдота");
+    ASSERT_EQ(vec[vec.size() - 1], L"тинкере?!!");
+}
+
+TEST(Insert, WithoutDefaultConstruct) {
+    bmstu::advanced_vector<nodefaultconstructed> vec{nodefaultconstructed(1), nodefaultconstructed(2)};
+    vec.insert(vec.begin() + 1, nodefaultconstructed(3));
+    ASSERT_EQ(vec[1].getvalue(), 3);
+}
+
+TEST(Equal, WithoutDefaultConstruct) {
+    bmstu::advanced_vector<nodefaultconstructed> vec{nodefaultconstructed(1), nodefaultconstructed(2)};
+    bmstu::advanced_vector<nodefaultconstructed> vec2{nodefaultconstructed(1), nodefaultconstructed(2)};
+    ASSERT_TRUE(vec == vec2);
+}
+
+TEST(Equal, INTEGER) {
+    bmstu::advanced_vector<int> vec{1, 2};
+    bmstu::advanced_vector<int> vec2{1, 2};
+    ASSERT_TRUE(vec == vec2);
+}
+
+TEST(Equal, WSTRING) {
+    bmstu::advanced_vector<std::wstring> vec{L"Я", L"ничего", L"не", L"понимаю"};
+    bmstu::advanced_vector<std::wstring> vec2{L"Я", L"ничего", L"не", L"понимаю"};
+    ASSERT_TRUE(vec == vec2);
+}
+
+TEST(NotEqual, WithoutDefaultConstruct) {
+    bmstu::advanced_vector<nodefaultconstructed> vec{nodefaultconstructed(1), nodefaultconstructed(2)};
+    bmstu::advanced_vector<nodefaultconstructed> vec2{nodefaultconstructed(1), nodefaultconstructed(2)};
+    ASSERT_FALSE(vec != vec2);
+}
+
+TEST(NotEqual, INTEGER) {
+    bmstu::advanced_vector<int> vec{1, 2};
+    bmstu::advanced_vector<int> vec2{1, 2};
+    ASSERT_FALSE(vec != vec2);
+}
+
+TEST(NotEqual, WSTRING) {
+    bmstu::advanced_vector<std::wstring> vec{L"Linus", L"Torvalds"};
+    bmstu::advanced_vector<std::wstring> vec2{L"Linus", L"Torvalds"};
+    ASSERT_FALSE(vec != vec2);
+}
+
+TEST(Output, INTEGER) {
+    bmstu::advanced_vector<int> vec{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    testing::internal::CaptureStdout();
+    std::cout << vec;
+    std::string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ("[1, 2, 3, 4, 5, 6, 7, 8, 9]", output);
+}
+
+TEST(Output, STRING) {
+    bmstu::advanced_vector<std::string> vec{"All done, sir"};
+    bmstu::advanced_vector<std::string> vec2{"All done, sir"};
+    testing::internal::CaptureStdout();
+    std::cout << vec;
+    std::string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ("[All done, sir]", output);
+}

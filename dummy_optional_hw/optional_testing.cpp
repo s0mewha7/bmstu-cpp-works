@@ -1,23 +1,23 @@
 #include <gtest/gtest.h>
 #include "basic_optional.h"
 
-class TS {
+class TESTING {
  public:
-    TS() noexcept {
+    TESTING() noexcept {
         ++default_constr;
     }
 
-    TS(const TS &other) noexcept {
+    TESTING(const TESTING &other) noexcept {
         other.update();
         ++copy_constr;
     }
 
-    TS(TS &&other) noexcept {
+    TESTING(TESTING &&other) noexcept {
         std::move(other).update();
         ++move_constr;
     }
 
-    TS &operator=(const TS &other) noexcept {
+    TESTING &operator=(const TESTING &other) noexcept {
         if (this != &other) {
             other.update();
             ++copy_assign;
@@ -25,7 +25,7 @@ class TS {
         return *this;
     }
 
-    TS &operator=(TS &&other) noexcept {
+    TESTING &operator=(TESTING &&other) noexcept {
         if (this != &other) {
             std::move(other).update();
             ++move_assign;
@@ -33,7 +33,7 @@ class TS {
         return *this;
     }
 
-    ~TS() {
+    ~TESTING() {
         ++destruct;
     }
 
@@ -165,430 +165,431 @@ TEST(OptionalTest, MoveOptionalValue) {
 }
 
 TEST(OptionalTest, DefaultTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        bmstu::optional<TS> opt;
+        bmstu::optional<TESTING> opt;
         ASSERT_FALSE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 0);
-        ASSERT_EQ(TS::default_constr, 0);
-        ASSERT_EQ(TS::copy_constr, 0);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 0);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 0);
+        ASSERT_EQ(TESTING::default_constr, 0);
+        ASSERT_EQ(TESTING::copy_constr, 0);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
 }
 
 TEST(OptionalTest, CopyValueTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable;
-        bmstu::optional<TS> opt(variable);
+        TESTING variable;
+        bmstu::optional<TESTING> opt(variable);
         ASSERT_TRUE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 2);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 2);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 1);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::destruct, 2);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 2);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, CopyOperatorValueTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable;
-        bmstu::optional<TS> opt;
+        TESTING variable;
+        bmstu::optional<TESTING> opt;
         opt = variable;
         ASSERT_TRUE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 2);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 2);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 1);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::destruct, 2);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 2);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, CopyOperatorFromOneToAnotherTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        TS variable_2;
-        bmstu::optional<TS> opt(variable_1);
+        TESTING variable_1;
+        TESTING variable_2;
+        bmstu::optional<TESTING> opt(variable_1);
         opt = variable_2;
         ASSERT_TRUE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 3);
-        ASSERT_EQ(TS::default_constr, 2);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 1);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 2);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 3);
+        ASSERT_EQ(TESTING::default_constr, 2);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 1);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 2);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 2);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::copy_assign, 1);
-    ASSERT_EQ(TS::destruct, 3);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 2);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::copy_assign, 1);
+    ASSERT_EQ(TESTING::destruct, 3);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveValueTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable;
-        bmstu::optional<TS> opt(std::move(variable));
+        TESTING variable;
+        bmstu::optional<TESTING> opt(std::move(variable));
         ASSERT_TRUE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 2);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 0);
-        ASSERT_EQ(TS::move_constr, 1);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 0);
-        ASSERT_EQ(TS::rvalue_call_count, 1);
+        ASSERT_EQ(TESTING::instance_count(), 2);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 0);
+        ASSERT_EQ(TESTING::move_constr, 1);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::rvalue_call_count, 1);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::move_constr, 1);
-    ASSERT_EQ(TS::destruct, 2);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::move_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 2);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveOperatorValueTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable;
-        bmstu::optional<TS> opt;
+        TESTING variable;
+        bmstu::optional<TESTING> opt;
         opt = std::move(variable);
         ASSERT_TRUE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 2);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 0);
-        ASSERT_EQ(TS::move_constr, 1);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 0);
-        ASSERT_EQ(TS::rvalue_call_count, 1);
+        ASSERT_EQ(TESTING::instance_count(), 2);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 0);
+        ASSERT_EQ(TESTING::move_constr, 1);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::rvalue_call_count, 1);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::move_constr, 1);
-    ASSERT_EQ(TS::destruct, 2);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::move_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 2);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveOperatorFromOneToAnotherTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        TS variable_2;
-        bmstu::optional<TS> opt(variable_1);
+        TESTING variable_1;
+        TESTING variable_2;
+        bmstu::optional<TESTING> opt(variable_1);
         opt = std::move(variable_2);
         ASSERT_TRUE(opt.has_value());
-        ASSERT_EQ(TS::instance_count(), 3);
-        ASSERT_EQ(TS::default_constr, 2);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 1);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 1);
+        ASSERT_EQ(TESTING::instance_count(), 3);
+        ASSERT_EQ(TESTING::default_constr, 2);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 1);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 1);
+        ASSERT_EQ(TESTING::rvalue_call_count, 1);
     }
-    ASSERT_EQ(TS::default_constr, 2);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::move_assign, 1);
-    ASSERT_EQ(TS::destruct, 3);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 2);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::move_assign, 1);
+    ASSERT_EQ(TESTING::destruct, 3);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, CopyEmptyOptionalTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        bmstu::optional<TS> opt_1;
-        bmstu::optional<TS> opt_2(opt_1);
+        bmstu::optional<TESTING> opt_1;
+        bmstu::optional<TESTING> opt_2(opt_1);
         ASSERT_FALSE(opt_1.has_value());
         ASSERT_FALSE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 0);
-        ASSERT_EQ(TS::default_constr, 0);
-        ASSERT_EQ(TS::copy_constr, 0);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 0);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 0);
+        ASSERT_EQ(TESTING::default_constr, 0);
+        ASSERT_EQ(TESTING::copy_constr, 0);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
 }
 
 TEST(OptionalTest, CopyOptionalWithValueTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable;
-        bmstu::optional<TS> opt_1(variable);
-        bmstu::optional<TS> opt_2(opt_1);
+        TESTING variable;
+        bmstu::optional<TESTING> opt_1(variable);
+        bmstu::optional<TESTING> opt_2(opt_1);
         ASSERT_TRUE(opt_1.has_value());
         ASSERT_TRUE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 3);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 2);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 2);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 3);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 2);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 2);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 2);
-    ASSERT_EQ(TS::destruct, 3);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 2);
+    ASSERT_EQ(TESTING::destruct, 3);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveEmptyOptionalTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        bmstu::optional<TS> opt_1;
-        bmstu::optional<TS> opt_2(std::move(opt_1));
+        bmstu::optional<TESTING> opt_1;
+        bmstu::optional<TESTING> opt_2(std::move(opt_1));
         ASSERT_FALSE(opt_1.has_value());
         ASSERT_FALSE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 0);
-        ASSERT_EQ(TS::default_constr, 0);
-        ASSERT_EQ(TS::copy_constr, 0);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 0);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 0);
+        ASSERT_EQ(TESTING::default_constr, 0);
+        ASSERT_EQ(TESTING::copy_constr, 0);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
 }
 
 TEST(OptionalTest, MoveOptionalWithValueTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable;
-        bmstu::optional<TS> opt_1(variable);
-        bmstu::optional<TS> opt_2(std::move(opt_1));
+        TESTING variable;
+        bmstu::optional<TESTING> opt_1(variable);
+        bmstu::optional<TESTING> opt_2(std::move(opt_1));
         ASSERT_TRUE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 3);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 2);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 2);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 3);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 2);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 2);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 2);
-    ASSERT_EQ(TS::move_constr, 0);
-    ASSERT_EQ(TS::destruct, 3);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 2);
+    ASSERT_EQ(TESTING::move_constr, 0);
+    ASSERT_EQ(TESTING::destruct, 3);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, CopyOptionalFromValueToAnotherValueOperatorTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        TS variable_2;
-        bmstu::optional<TS> opt_1(variable_1);
-        bmstu::optional<TS> opt_2(variable_2);
+        TESTING variable_1;
+        TESTING variable_2;
+        bmstu::optional<TESTING> opt_1(variable_1);
+        bmstu::optional<TESTING> opt_2(variable_2);
         opt_2 = opt_1;
         ASSERT_TRUE(opt_1.has_value());
         ASSERT_TRUE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 4);
-        ASSERT_EQ(TS::default_constr, 2);
-        ASSERT_EQ(TS::copy_constr, 2);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 1);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 3);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 4);
+        ASSERT_EQ(TESTING::default_constr, 2);
+        ASSERT_EQ(TESTING::copy_constr, 2);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 1);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 3);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 2);
-    ASSERT_EQ(TS::copy_constr, 2);
-    ASSERT_EQ(TS::copy_assign, 1);
-    ASSERT_EQ(TS::destruct, 4);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 2);
+    ASSERT_EQ(TESTING::copy_constr, 2);
+    ASSERT_EQ(TESTING::copy_assign, 1);
+    ASSERT_EQ(TESTING::destruct, 4);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, CopyOptionalFromEmptyToValueOperatorTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        bmstu::optional<TS> opt_1(variable_1);
-        bmstu::optional<TS> opt_2;
+        TESTING variable_1;
+        bmstu::optional<TESTING> opt_1(variable_1);
+        bmstu::optional<TESTING> opt_2;
         opt_2 = opt_1;
         ASSERT_TRUE(opt_1.has_value());
         ASSERT_TRUE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 3);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 2);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 2);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 3);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 2);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 2);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 2);
-    ASSERT_EQ(TS::destruct, 3);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 2);
+    ASSERT_EQ(TESTING::destruct, 3);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, CopyOptionalFromValueToEmptyTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        bmstu::optional<TS> opt_1(variable_1);
-        bmstu::optional<TS> opt_2;
+        TESTING variable_1;
+        bmstu::optional<TESTING> opt_1(variable_1);
+        bmstu::optional<TESTING> opt_2;
         opt_1 = opt_2;
         ASSERT_FALSE(opt_1.has_value());
         ASSERT_FALSE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 1);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 1);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_EQ(TESTING::instance_count(), 1);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 1);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 1);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::destruct, 2);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 2);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveOptionalOperatorTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        TS variable_2;
-        bmstu::optional<TS> opt_1(variable_1);
-        bmstu::optional<TS> opt_2(variable_2);
+        TESTING variable_1;
+        TESTING variable_2;
+        bmstu::optional<TESTING> opt_1(variable_1);
+        bmstu::optional<TESTING> opt_2(variable_2);
         opt_2 = std::move(opt_1);
         ASSERT_TRUE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 4);
-        ASSERT_EQ(TS::default_constr, 2);
-        ASSERT_EQ(TS::copy_constr, 2);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 1);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 2);
-        ASSERT_EQ(TS::rvalue_call_count, 1);
+        ASSERT_EQ(TESTING::instance_count(), 4);
+        ASSERT_EQ(TESTING::default_constr, 2);
+        ASSERT_EQ(TESTING::copy_constr, 2);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 1);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 2);
+        ASSERT_EQ(TESTING::rvalue_call_count, 1);
     }
-    ASSERT_EQ(TS::default_constr, 2);
-    ASSERT_EQ(TS::copy_constr, 2);
-    ASSERT_EQ(TS::move_assign, 1);
-    ASSERT_EQ(TS::destruct, 4);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 2);
+    ASSERT_EQ(TESTING::copy_constr, 2);
+    ASSERT_EQ(TESTING::move_assign, 1);
+    ASSERT_EQ(TESTING::destruct, 4);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveOptionalFromEmptyToValueOperatorTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        bmstu::optional<TS> opt_1(variable_1);
-        bmstu::optional<TS> opt_2;
+        TESTING variable_1;
+        bmstu::optional<TESTING> opt_1(variable_1);
+        bmstu::optional<TESTING> opt_2;
         opt_2 = std::move(opt_1);
         ASSERT_TRUE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 3);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 1);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 0);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 1);
+        ASSERT_EQ(TESTING::instance_count(), 3);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 1);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 0);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 1);
+        ASSERT_EQ(TESTING::rvalue_call_count, 1);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::destruct, 3);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 3);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
 
 TEST(OptionalTest, MoveOptionalOperatorFromValueToEmptyTS) {
-    TS::reset();
-    ASSERT_EQ(TS::instance_count(), 0);
+    TESTING::reset();
+    ASSERT_EQ(TESTING::instance_count(), 0);
     {
-        TS variable_1;
-        bmstu::optional<TS> opt_1(variable_1);
-        bmstu::optional<TS> opt_2;
+        TESTING variable_1;
+        bmstu::optional<TESTING> opt_1(variable_1);
+        bmstu::optional<TESTING> opt_2;
         opt_1 = std::move(opt_2);
         ASSERT_FALSE(opt_1.has_value());
-        ASSERT_FALSE(opt_2.has_value());
-        ASSERT_EQ(TS::instance_count(), 1);
-        ASSERT_EQ(TS::default_constr, 1);
-        ASSERT_EQ(TS::copy_constr, 1);
-        ASSERT_EQ(TS::move_constr, 0);
-        ASSERT_EQ(TS::copy_assign, 0);
-        ASSERT_EQ(TS::move_assign, 0);
-        ASSERT_EQ(TS::destruct, 1);
-        ASSERT_EQ(TS::lvalue_call_count, 0);
-        ASSERT_EQ(TS::const_lvalue_call_count, 1);
-        ASSERT_EQ(TS::rvalue_call_count, 0);
+        ASSERT_FALSE(opt_2.has_value()); // NOLINT
+        ASSERT_EQ(TESTING::instance_count(), 1);
+        ASSERT_EQ(TESTING::default_constr, 1);
+        ASSERT_EQ(TESTING::copy_constr, 1);
+        ASSERT_EQ(TESTING::move_constr, 0);
+        ASSERT_EQ(TESTING::copy_assign, 0);
+        ASSERT_EQ(TESTING::move_assign, 0);
+        ASSERT_EQ(TESTING::destruct, 1);
+        ASSERT_EQ(TESTING::lvalue_call_count, 0);
+        ASSERT_EQ(TESTING::const_lvalue_call_count, 1);
+        ASSERT_EQ(TESTING::rvalue_call_count, 0);
     }
-    ASSERT_EQ(TS::default_constr, 1);
-    ASSERT_EQ(TS::copy_constr, 1);
-    ASSERT_EQ(TS::destruct, 2);
-    ASSERT_EQ(TS::instance_count(), 0);
+    ASSERT_EQ(TESTING::default_constr, 1);
+    ASSERT_EQ(TESTING::copy_constr, 1);
+    ASSERT_EQ(TESTING::destruct, 2);
+    ASSERT_EQ(TESTING::instance_count(), 0);
 }
+

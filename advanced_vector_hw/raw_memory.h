@@ -9,11 +9,12 @@ class raw_memory {
  public:
     raw_memory() = default;
     explicit raw_memory(size_t size) : capacity_(size), buffer_(allocate_(size)) {}
-    raw_memory(const raw_memory&) = delete;
+    raw_memory(const raw_memory &other) = delete;
     raw_memory& operator=(const raw_memory& other) = delete;
 
     ~raw_memory() {
         deallocate_(buffer_);
+        capacity_ = 0;
     }
 
     raw_memory(const raw_memory &&other) noexcept:
@@ -24,10 +25,9 @@ class raw_memory {
     raw_memory& operator=(raw_memory&& other) noexcept {
         if (buffer_ != nullptr) {
             deallocate_(buffer_);
+            buffer_ = std::exchange(other.buffer_, nullptr);
+            capacity_ = std::exchange(other.capacity_, 0);
         }
-        buffer_ = std::exchange(other.buffer_, nullptr);
-        capacity_ = std::exchange(other.capacity_, 0);
-
         return *this;
     }
 
@@ -49,7 +49,7 @@ class raw_memory {
         return const_cast<raw_memory&>(*this) + offset;
     }
 
-    void swap(raw_memory &other) noexcept {
+    void swap(raw_memory other) noexcept {
         std::swap(buffer_, other.buffer_);
         std::swap(capacity_, other.capacity_);
     }

@@ -258,6 +258,7 @@ class list {
         }
         return true;
     }
+
     friend bool operator!=(const list &l, const list &r) {
         return !(l == r);
     }
@@ -284,6 +285,7 @@ class list {
         os << " ]";
         return os;
     }
+
     iterator insert(const_iterator pos, const T &value) {
         node *current = head_->next_node_;
         for (size_t i = 0; i < (pos - begin()); ++i) {
@@ -294,6 +296,27 @@ class list {
         current->prev_node_ = new_node;
         ++size_;
         return pos;
+    }
+
+    list<T>& concat(bmstu::list<T> &other) {
+        if (this == &other) return *this;
+
+        if (other.empty()) return *this;
+        auto first_other = other.head_->next_node_;
+        auto last_this = tail_->prev_node_;
+
+        first_other->prev_node_ = last_this;
+        last_this->next_node_ = first_other;
+
+        auto tmp_this_tail = tail_;
+        tail_ = other.tail_;
+        tmp_this_tail->prev_node_ = other.head_;
+        other.tail_ = tmp_this_tail;
+        other.head_->next_node_ = other.tail_;
+
+        size_ += other.size_;
+        other.size_ = 0;
+        return *this;
     }
 
  private:

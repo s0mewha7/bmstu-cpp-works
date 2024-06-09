@@ -540,7 +540,7 @@ TEST_F(BmstuListlistTests, init) {
 
     {
         const bmstu::list<string> empty_string_list;
-        ASSERT_EQ(empty_string_list.size(), 0u);
+        ASSERT_EQ(empty_string_list.size(), 0u) ;
         ASSERT_TRUE(empty_string_list.empty());
     }
 }
@@ -1055,3 +1055,32 @@ TEST_F(BmstuListlistTests, FromVector) {
                                         "string4"s, "string5"s, "string6"s,
                                         "string7"s, "end_string"s}), my_vec);
 }
+
+auto func(bmstu::list<int> &a) -> bmstu::list<int>
+{
+    return a;
+}
+
+/*
+TEST_F(BmstuListlistTests, Concat) {
+    using namespace bmstu;
+    list<int> a{1, 2, 3};
+    auto b = list<int>{3, 4, 5};
+    auto c = list<int>{7, 8, 9};
+    a.concat(b);
+    ASSERT_EQ(a.size(), 6);
+    ASSERT_EQ(b.size(), 0);
+
+    auto this_list = list<int>{2,3,4,4,4};
+    auto other = list<int>{2,2,2,23,12};
+    this_list.concat(other).concat(a);
+    ASSERT_EQ(this_list.size(), 16);
+    ASSERT_EQ(other.size(), 0);
+    for (const auto &numbers : this_list) {
+        std::cout << numbers << "\n";
+    }
+
+    for (const auto &numbers : other) {
+        std::cout << numbers << "\n";
+    }
+} */
