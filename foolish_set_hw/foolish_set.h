@@ -18,10 +18,7 @@ class set {
  public:
     using treenode = bmstu::search_tree<stype>::TreeNode;
     using It = typename search_tree<stype>::iterator;
-
-    set() {
-        data = new bmstu::search_tree<stype>();
-    }
+    set() : data(new bmstu::search_tree<stype>()) {}
 
     ~set() {
         delete data;

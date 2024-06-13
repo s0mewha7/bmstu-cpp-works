@@ -2,3 +2,5 @@
 /cmake-build-default/
 /.github/workflows
 .idea
+/.vscode
+

@@ -319,9 +319,9 @@ TEST(NotEqual, INTEGER) {
 }
 
 TEST(NotEqual, WSTRING) {
-    bmstu::advanced_vector<std::wstring> vec{L"Linus", L"Torvalds"};
-    bmstu::advanced_vector<std::wstring> vec2{L"Linus", L"Torvalds"};
-    ASSERT_FALSE(vec != vec2);
+    bmstu::advanced_vector<std::wstring> legend{L"Linus", L"Torvalds"};
+    bmstu::advanced_vector<std::wstring> legend2{L"Linus", L"Torvalds"};
+    ASSERT_FALSE(legend != legend2);
 }
 
 TEST(Output, INTEGER) {
@@ -340,3 +340,12 @@ TEST(Output, STRING) {
     std::string output = testing::internal::GetCapturedStdout();
     ASSERT_EQ("[All done, sir]", output);
 } // NOLINT
+
+TEST(AdvancedTest, emplace) {
+    bmstu::advanced_vector<int> vec{1,2,3,4,5,6};
+    bmstu::advanced_vector<int>::iterator it = vec.begin() + 2;
+    ASSERT_EQ(*it, 3);
+    bmstu::advanced_vector<int> vecexp{1,2,666,3,4,5,6};
+    vec.emplace(it, 666);
+    ASSERT_EQ(vecexp, vec);
+}

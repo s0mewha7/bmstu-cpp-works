@@ -135,15 +135,15 @@ class advanced_vector {
         if (this != &other) {
             if (other.size_ > data_.capacity()) {
                 advanced_vector other_copy(other);
-                this->swapping(other_copy);
+                this->swapping(other_copy); // Copy-and-Swap idiom
             } else {
                 if (other.size_ < size_) {
-                    std::copy_n(other.data_.GetAddress(), other.size_, data_.GetAddress());
-                    std::destroy_n(data_.GetAddress() + other.size_, size_ - other.size_);
+                    std::copy_n(other.data_.get_address(), other.size_, data_.get_address());
+                    std::destroy_n(data_.get_address() + other.size_, size_ - other.size_);
                 } else {
-                    std::copy_n(other.data_.GetAddress(), size_, data_.GetAddress());
-                    std::uninitialized_copy_n(other.data_.GetAddress() + size_, other.size_ - size_,
-                                              data_.GetAddress() + size_);
+                    std::copy_n(other.data_.get_address(), size_, data_.get_address());
+                    std::uninitialized_copy_n(other.data_.get_address() + size_, other.size_ - size_,
+                                              data_.get_address() + size_);
                 }
             }
             size_ = other.size_;
@@ -362,7 +362,8 @@ class advanced_vector {
         return os;
     }
 
- private:
+
+private:
     static bool lexicographical_compare_(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
         auto fl = left.begin(), fr = right.begin();
         for (; (fl != left.end()) && (fr != right.end()); ++fl, ++fr) {
@@ -394,10 +395,10 @@ class advanced_vector {
         copy_or_move(new_data, 0, size_, 0);
         replace_memory(new_data);
     }
-    /*
+
     void swapping(const advanced_vector<Type> &other) {
         std::swap(*this, other);
-    } */
+    }
 
     void replace_memory(const raw_memory<Type> &new_data) {
         // Destroy elements of data_

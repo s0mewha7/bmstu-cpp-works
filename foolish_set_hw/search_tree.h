@@ -33,7 +33,7 @@ class search_tree {
         uptr_tn right;
     };
 
-    class iterator {
+    struct iterator {
      public:
         using iterator_category = std::bidirectional_iterator_tag;
         using value_type = T;

@@ -203,7 +203,7 @@ class optional {
     }
 
  private:
-    alignas(T) char data_[sizeof(T)]{};
+    alignas(T) uint8_t data_[sizeof(T)]{};
     bool is_initialized_ = false;
 };
 }  // namespace bmstu
