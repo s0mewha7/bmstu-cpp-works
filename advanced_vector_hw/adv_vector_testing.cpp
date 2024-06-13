@@ -342,10 +342,10 @@ TEST(Output, STRING) {
 } // NOLINT
 
 TEST(AdvancedTest, emplace) {
-    bmstu::advanced_vector<int> vec{1,2,3,4,5,6};
+    bmstu::advanced_vector<int> vec{1, 2, 3, 4, 5, 6};
     bmstu::advanced_vector<int>::iterator it = vec.begin() + 2;
     ASSERT_EQ(*it, 3);
-    bmstu::advanced_vector<int> vecexp{1,2,666,3,4,5,6};
+    bmstu::advanced_vector<int> vecexp{1, 2, 666, 3, 4, 5, 6};
     vec.emplace(it, 666);
     ASSERT_EQ(vecexp, vec);
 }

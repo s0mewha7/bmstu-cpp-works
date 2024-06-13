@@ -135,7 +135,7 @@ class advanced_vector {
         if (this != &other) {
             if (other.size_ > data_.capacity()) {
                 advanced_vector other_copy(other);
-                this->swapping(other_copy); // Copy-and-Swap idiom
+                this->swapping(other_copy);  // Copy-and-Swap idiom
             } else {
                 if (other.size_ < size_) {
                     std::copy_n(other.data_.get_address(), other.size_, data_.get_address());
@@ -363,7 +363,7 @@ class advanced_vector {
     }
 
 
-private:
+ private:
     static bool lexicographical_compare_(const advanced_vector<Type> &left, const advanced_vector<Type> &right) {
         auto fl = left.begin(), fr = right.begin();
         for (; (fl != left.end()) && (fr != right.end()); ++fl, ++fr) {
